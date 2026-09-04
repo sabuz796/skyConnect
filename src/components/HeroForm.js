@@ -401,15 +401,26 @@ export class HeroForm {
       return
     }
 
+    // NOTE: open WhatsApp synchronously inside the user gesture — wrapping
+    // window.open in a setTimeout breaks the gesture chain and iOS/Safari
+    // popup blockers will silently swallow the new tab (lost leads).
+    const message = this.buildMessage(service, components)
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+
+    const openTab = document.createElement('a')
+    openTab.href = url
+    openTab.target = '_blank'
+    openTab.rel = 'noopener noreferrer'
+    openTab.style.display = 'none'
+    document.body.appendChild(openTab)
+    openTab.click()
+    openTab.remove()
+
     btn.classList.add('loading')
     btn.disabled = true
 
-    const message = this.buildMessage(service, components)
-
+    // Animation only — the actual navigation already happened above.
     setTimeout(() => {
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
-      window.open(url, '_blank')
-
       btn.classList.remove('loading')
       btn.classList.add('success')
 
