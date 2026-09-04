@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="SkyConnect - VFR flights, Umrah packages and visa services. Modern, trusted travel." />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="canonical" href="https://skyconnect.dk/" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="SkyConnect | VFR Flights, Umrah & Visa" />
+    <meta property="og:description" content="Specialized in VFR flights, complete Umrah packages and smooth visa handling." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://skyconnect.dk/" />
+    <meta property="og:image" content="https://skyconnect.dk/images/hero-flight.jpg" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="sv_SE" />
+    <meta property="og:locale:alternate" content="bn_BD" />
+    <meta property="og:site_name" content="SkyConnect" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SkyConnect | VFR Flights, Umrah & Visa" />
+    <meta name="twitter:description" content="Specialized in VFR flights, complete Umrah packages and smooth visa handling." />
+    <meta name="twitter:image" content="https://skyconnect.dk/images/hero-flight.jpg" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "SkyConnect",
+      "url": "https://skyconnect.dk",
+      "logo": "https://skyconnect.dk/favicon.svg",
+      "description": "VFR flights to South Asia & Southeast Asia, Umrah packages, and visa services.",
+      "telephone": "+46-73-978-67-40",
+      "sameAs": [],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "SE"
+      },
+      "areaServed": ["SE", "DK", "NO", "FI"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Travel Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "VFR Flights" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Umrah Packages" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Visa Services" } }
+        ]
+      }
+    }
+    </script>
+
+    <title>SkyConnect | VFR Flights, Umrah & Visa</title>
+
+    <!-- Set lang from localStorage before render -->
+    <script>
+      (function() {
+        var lang = localStorage.getItem('skyconnect-lang');
+        if (lang === 'sv' || lang === 'bn') {
+          document.documentElement.lang = lang;
+        }
+      })();
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased transition-colors duration-200">
+    <div id="app">
+      <div class="skeleton-header">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <div class="skeleton skeleton-logo"></div>
+          <div class="hidden md:flex items-center gap-7">
+            <div class="skeleton skeleton-nav"></div>
+            <div class="skeleton skeleton-nav"></div>
+            <div class="skeleton skeleton-nav"></div>
+            <div class="skeleton skeleton-nav"></div>
+            <div class="skeleton skeleton-nav"></div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="skeleton skeleton-icon"></div>
+            <div class="skeleton skeleton-icon"></div>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-16">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+          <div class="skeleton skeleton-badge mx-auto mb-5"></div>
+          <div class="skeleton skeleton-title mx-auto mb-3"></div>
+          <div class="skeleton skeleton-title-short mx-auto mb-5"></div>
+          <div class="skeleton skeleton-text mx-auto mb-2"></div>
+          <div class="skeleton skeleton-text-short mx-auto"></div>
+        </div>
+        <div class="max-w-3xl mx-auto">
+          <div class="skeleton skeleton-card h-80 rounded-2xl"></div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

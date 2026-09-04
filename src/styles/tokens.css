@@ -1,0 +1,123 @@
+/* ===== Design Tokens — Cold Luxury ===== */
+:root {
+  /* ===== Service Brand Colors ===== */
+  --color-flight: #2563eb;
+  --color-flight-hover: #1d4ed8;
+  --color-flight-bg: #eff6ff;
+  --color-flight-text: #1e40af;
+
+  --color-umrah: #c9a96e;
+  --color-umrah-hover: #b8944f;
+  --color-umrah-bg: #faf6ee;
+  --color-umrah-text: #8b7340;
+
+  --color-hotel: #059669;
+  --color-hotel-hover: #047857;
+  --color-hotel-bg: #ecfdf5;
+  --color-hotel-text: #065f46;
+
+  /* ===== Active Service (switched via JS) ===== */
+  --accent: var(--color-flight);
+  --accent-hover: var(--color-flight-hover);
+  --accent-bg: var(--color-flight-bg);
+  --accent-text: var(--color-flight-text);
+
+  /* ===== Accent Gold (Primary Brand) ===== */
+  --gold: #c9a96e;
+  --gold-hover: #b8944f;
+  --gold-bg: #faf6ee;
+  --gold-text: #8b7340;
+
+  /* ===== Form System ===== */
+  --input-height: 3rem;
+  --input-radius: 0.5rem;
+  --input-font: 0.9375rem;
+  --label-font: 0.75rem;
+  --transition-fast: 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-normal: 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-slow: 350ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ===== Semantic Colors (Light Mode) ===== */
+  --surface: #f7f5f2;
+  --surface-elevated: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #d4d0c8;
+  --input-border-hover: #b8b3a8;
+  --input-text: #1a1714;
+  --input-placeholder: #8a8580;
+  --label-color: #6b6560;
+  --label-color-active: var(--accent);
+  --text-primary: #1a1714;
+  --text-secondary: #3d3a36;
+  --text-muted: #8a8580;
+  --border-color: #d4d0c8;
+  --focus-ring: var(--gold-bg);
+  --error-color: #dc2626;
+  --error-bg: #fef2f2;
+  --success-color: #059669;
+  --success-bg: #ecfdf5;
+  --shadow-sm: 0 1px 3px 0 rgb(10 15 26 / 0.04), 0 1px 2px -1px rgb(10 15 26 / 0.04);
+  --shadow-md: 0 4px 12px -2px rgb(10 15 26 / 0.06), 0 2px 4px -2px rgb(10 15 26 / 0.04);
+  --shadow-lg: 0 10px 24px -4px rgb(10 15 26 / 0.08), 0 4px 8px -4px rgb(10 15 26 / 0.04);
+  --shadow-xl: 0 20px 40px -8px rgb(10 15 26 / 0.12), 0 8px 16px -8px rgb(10 15 26 / 0.06);
+
+  /* ===== Z-Index Scale ===== */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 300;
+  --z-popover: 400;
+  --z-toast: 500;
+}
+
+.dark {
+  --surface: #0a0f1a;
+  --surface-elevated: #111827;
+  --input-bg: #1a2332;
+  --input-border: #2a3444;
+  --input-border-hover: #3a4a5c;
+  --input-text: #f1f0ed;
+  --input-placeholder: #6b7280;
+  --label-color: #9ca3af;
+  --text-primary: #f1f0ed;
+  --text-secondary: #c4c0b8;
+  --text-muted: #6b7280;
+  --border-color: #2a3444;
+  --focus-ring: rgba(201, 169, 110, 0.15);
+  --error-bg: #450a0a;
+  --success-bg: #064e3b;
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.2), 0 1px 2px -1px rgb(0 0 0 / 0.15);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.25), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+  --shadow-lg: 0 10px 24px -4px rgb(0 0 0 / 0.3), 0 4px 8px -4px rgb(0 0 0 / 0.2);
+  --shadow-xl: 0 20px 40px -8px rgb(0 0 0 / 0.35), 0 8px 16px -8px rgb(0 0 0 / 0.25);
+}
+
+/* ===== Service-Specific Variable Overrides ===== */
+[data-service="flight"] {
+  --accent: var(--color-flight);
+  --accent-hover: var(--color-flight-hover);
+  --accent-bg: var(--color-flight-bg);
+  --accent-text: var(--color-flight-text);
+}
+
+[data-service="umrah"] {
+  --accent: var(--color-umrah);
+  --accent-hover: var(--color-umrah-hover);
+  --accent-bg: var(--color-umrah-bg);
+  --accent-text: var(--color-umrah-text);
+}
+
+[data-service="hotel"] {
+  --accent: var(--color-hotel);
+  --accent-hover: var(--color-hotel-hover);
+  --accent-bg: var(--color-hotel-bg);
+  --accent-text: var(--color-hotel-text);
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0.01ms;
+    --transition-normal: 0.01ms;
+    --transition-slow: 0.01ms;
+  }
+}
