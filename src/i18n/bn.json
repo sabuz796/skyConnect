@@ -159,5 +159,6 @@
   "msg_checkin": "চেক-ইন",
   "msg_checkout": "চেক-আউট",
   "msg_rooms": "রুম/অতিথি",
-  "msg_sent_via": "- SkyConnect-এর মাধ্যমে পাঠানো"
+  "msg_sent_via": "- SkyConnect-এর মাধ্যমে পাঠানো",
+  "email_fallback": "হোয়াটসঅ্যাপ নেই? পরিবর্তে ইমেইলে আপনার অনুরোধ পাঠান"
 }

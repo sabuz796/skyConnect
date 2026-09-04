@@ -2,7 +2,7 @@ import { AirportSearch } from './AirportSearch.js'
 import { DatePicker } from './DatePicker.js'
 import { PassengerStepper } from './PassengerStepper.js'
 import { t } from '../js/i18n.js'
-import { WHATSAPP_NUMBER } from '../js/config.js'
+import { WHATSAPP_NUMBER, CONTACT_EMAIL } from '../js/config.js'
 import { buildFlightMessage, buildUmrahMessage, buildHotelMessage } from '../lib/whatsapp.js'
 
 const SERVICES = [
@@ -108,6 +108,7 @@ export class HeroForm {
           </span>
           <span class="btn-success" aria-hidden="true">&#10003;</span>
         </button>
+        <a href="#" data-email="flight" class="email-fallback block text-center text-sm text-neutral-500 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition mt-3" data-i18n="email_fallback">No WhatsApp? Send your request by email instead</a>
       </div>
     `
   }
@@ -142,6 +143,7 @@ export class HeroForm {
           </span>
           <span class="btn-success" aria-hidden="true">&#10003;</span>
         </button>
+        <a href="#" data-email="umrah" class="email-fallback block text-center text-sm text-neutral-500 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition mt-3" data-i18n="email_fallback">No WhatsApp? Send your request by email instead</a>
       </div>
     `
   }
@@ -171,6 +173,7 @@ export class HeroForm {
           </span>
           <span class="btn-success" aria-hidden="true">&#10003;</span>
         </button>
+        <a href="#" data-email="hotel" class="email-fallback block text-center text-sm text-neutral-500 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition mt-3" data-i18n="email_fallback">No WhatsApp? Send your request by email instead</a>
       </div>
     `
   }
@@ -221,6 +224,27 @@ export class HeroForm {
       btn.addEventListener('click', (e) => {
         e.preventDefault()
         this.handleSubmit(btn.dataset.whatsapp, btn)
+      })
+    })
+
+    // Email fallback handlers — same message, delivered via mailto:
+    this.el.querySelectorAll('[data-email]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault()
+        const service = link.dataset.email
+        const components = this.formComponents[service]
+        if (!components) return
+
+        const errors = this.validate(service, components)
+        if (errors.length > 0) {
+          this.showError(errors[0])
+          return
+        }
+
+        const message = this.buildMessage(service, components)
+        const subject = encodeURIComponent(`SkyConnect request — ${service}`)
+        const body = encodeURIComponent(message)
+        window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
       })
     })
   }

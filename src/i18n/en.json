@@ -159,5 +159,6 @@
   "msg_checkin": "Check-in",
   "msg_checkout": "Check-out",
   "msg_rooms": "Rooms/Guests",
-  "msg_sent_via": "- Sent via SkyConnect"
+  "msg_sent_via": "- Sent via SkyConnect",
+  "email_fallback": "No WhatsApp? Send your request by email instead"
 }
