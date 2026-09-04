@@ -82,6 +82,8 @@ export class HeroForm {
         <div id="form-hotel" class="form-panel hidden" role="tabpanel" aria-labelledby="tab-hotel">
           ${this.renderHotelForm()}
         </div>
+
+        <p class="sr-only" role="status" aria-live="polite" data-form-status></p>
       </div>
     `
   }
@@ -405,6 +407,10 @@ export class HeroForm {
     nextTab.setAttribute('aria-selected', 'true')
     nextTab.setAttribute('tabindex', '0')
     nextTab.focus()
+
+    // Announce the switch to assistive technology (screen readers)
+    const status = this.el.querySelector('[data-form-status]')
+    if (status) status.textContent = this.t('tab_' + serviceId)
 
     // Update CSS variable for service colors
     this.el.closest('[data-service]')?.setAttribute('data-service', serviceId)
