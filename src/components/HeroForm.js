@@ -3,6 +3,7 @@ import { DatePicker } from './DatePicker.js'
 import { PassengerStepper } from './PassengerStepper.js'
 import { t } from '../js/i18n.js'
 import { WHATSAPP_NUMBER } from '../js/config.js'
+import { buildFlightMessage, buildUmrahMessage, buildHotelMessage } from '../lib/whatsapp.js'
 
 const SERVICES = [
   {
@@ -474,50 +475,34 @@ export class HeroForm {
   }
 
   buildMessage(service, components) {
-    const lines = []
-
+    let message
     if (service === 'flight') {
-      const from = components.from.selectedAirport
-      const to = components.to.selectedAirport
-      const depart = components.depart.getValue()
-      const ret = components.ret.getValue()
-      const pax = components.pax.getValue()
-
-      lines.push(t('msg_flight_title'))
-      lines.push('')
-      lines.push(`${t('msg_from')}: ${from ? `${from.city} (${from.code})` : t('msg_na')}`)
-      lines.push(`${t('msg_to')}: ${to ? `${to.city} (${to.code})` : t('msg_na')}`)
-      lines.push(`${t('msg_depart')}: ${depart || t('msg_na')}`)
-      if (ret) lines.push(`${t('msg_return')}: ${ret}`)
-      lines.push(`${t('msg_passengers')}: ${pax.adults} adult${pax.adults > 1 ? 's' : ''}${pax.children ? `, ${pax.children} child${pax.children > 1 ? 'ren' : ''}` : ''}${pax.infants ? `, ${pax.infants} infant${pax.infants > 1 ? 's' : ''}` : ''}`)
+      const c = components
+      message = buildFlightMessage({
+        from: c.from.selectedAirport,
+        to: c.to.selectedAirport,
+        depart: c.depart.getValue(),
+        ret: c.ret.getValue(),
+        pax: c.pax.getValue()
+      }, t)
     } else if (service === 'umrah') {
-      const date = components.date.getValue()
-      const pax = components.pax.getValue()
-      const pkg = this.el.querySelector('#umrah-package')?.value
-
-      lines.push(t('msg_umrah_title'))
-      lines.push('')
-      lines.push(`${t('msg_departure')}: ${date || t('msg_na')}`)
-      lines.push(`${t('msg_hotel')}: ${pkg || t('msg_na')}`)
-      lines.push(`${t('msg_travelers')}: ${pax.adults} adult${pax.adults > 1 ? 's' : ''}${pax.children ? `, ${pax.children} child${pax.children > 1 ? 'ren' : ''}` : ''}`)
+      const c = components
+      message = buildUmrahMessage({
+        date: c.date.getValue(),
+        pkg: this.el.querySelector('#umrah-package')?.value,
+        pax: c.pax.getValue()
+      }, t)
     } else if (service === 'hotel') {
-      const dest = components.dest.selectedAirport
-      const checkin = components.checkin.getValue()
-      const checkout = components.checkout.getValue()
-      const rooms = this.el.querySelector('#hotel-rooms')?.value
-
-      lines.push(t('msg_hotel_title'))
-      lines.push('')
-      lines.push(`${t('msg_destination')}: ${dest ? `${dest.city}, ${dest.country}` : t('msg_na')}`)
-      lines.push(`${t('msg_checkin')}: ${checkin || t('msg_na')}`)
-      lines.push(`${t('msg_checkout')}: ${checkout || t('msg_na')}`)
-      if (rooms) lines.push(`${t('msg_rooms')}: ${rooms}`)
+      const c = components
+      message = buildHotelMessage({
+        dest: c.dest.selectedAirport,
+        checkin: c.checkin.getValue(),
+        checkout: c.checkout.getValue(),
+        rooms: this.el.querySelector('#hotel-rooms')?.value
+      }, t)
     }
 
-    lines.push('')
-    lines.push(t('msg_sent_via'))
-
-    return lines.join('\n')
+    return message ? `${message}\n\n${t('msg_sent_via')}` : undefined
   }
 
   setLanguage(lang) {
