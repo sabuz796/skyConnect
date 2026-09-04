@@ -14,7 +14,7 @@ import {
   initBlurUpImages,
   initSmoothScroll
 } from './js/ui.js'
-import { WHATSAPP_NUMBER, PHONE_NUMBER, PHONE_LINK } from './js/config.js'
+import { WHATSAPP_NUMBER, PHONE_NUMBER, PHONE_LINK, CONTACT_EMAIL } from './js/config.js'
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -23,6 +23,7 @@ document.getElementById('app').innerHTML = renderApp({
   whatsappNumber: WHATSAPP_NUMBER,
   phoneNumber: PHONE_NUMBER,
   phoneLink: PHONE_LINK,
+  emailAddress: CONTACT_EMAIL,
 })
 
 // Init theme & i18n

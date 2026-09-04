@@ -3,7 +3,7 @@ import sv from '../i18n/sv.json'
 import bn from '../i18n/bn.json'
 
 const translations = { en, sv, bn }
-const languageFlags = { en: '🇬🇧', sv: '🇸🇪', bn: '🇧🇩' }
+const languageFlags = { en: '🌐', sv: '🇸🇪', bn: '🇧🇩' }
 
 let currentLang = localStorage.getItem('skyconnect-lang') || 'en'
 

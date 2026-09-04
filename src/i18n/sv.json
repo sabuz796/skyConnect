@@ -160,5 +160,6 @@
   "msg_checkout": "Utcheckning",
   "msg_rooms": "Rum/gäster",
   "msg_sent_via": "- Skickat via SkyConnect",
-  "email_fallback": "Ingen WhatsApp? Skicka din förfrågan via e-post istället"
+  "email_fallback": "Ingen WhatsApp? Skicka din förfrågan via e-post istället",
+  "btn_email": "Maila oss"
 }
