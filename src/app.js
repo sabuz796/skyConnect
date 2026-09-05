@@ -115,8 +115,8 @@ function booking(c) {
         </div>
         <div class="md:sticky md:top-24 reveal">
           <p class="eyebrow mb-4" data-i18n="nav_services">Services</p>
-          <h2 class="headline-display text-3xl md:text-[2.5rem] text-neutral-900 dark:text-white mb-4 leading-[1.1]">Journeys,<br>handled with care.</h2>
-          <p class="text-neutral-500 dark:text-neutral-400 max-w-sm text-[0.9375rem] leading-relaxed" data-i18n="services_desc">Tell us where you're headed and we'll find the best route for you.</p>
+          <h2 class="headline-display text-3xl md:text-[2.5rem] text-neutral-900 dark:text-white mb-4 leading-[1.1]"><span data-i18n="booking_title_1">Journeys,</span><br><span data-i18n="booking_title_2">handled with care.</span></h2>
+          <p class="text-neutral-500 dark:text-neutral-400 max-w-sm text-[0.9375rem] leading-relaxed" data-i18n="services_desc">Personal service and strong airline connections for routes that suit you.</p>
           <p class="text-xs text-neutral-400 dark:text-neutral-500 mt-5" data-i18n="form_note">Request is sent directly via WhatsApp - we usually reply within minutes</p>
         </div>
       </div>
@@ -526,32 +526,33 @@ function contact(c) {
   `
 }
 
-function footer() {
+function footer(c) {
   return `
   <!-- FOOTER -->
   <footer class="bg-[#0a0f1a] text-neutral-500 py-12 border-t border-neutral-800/50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid md:grid-cols-3 gap-8 mb-10">
+      <div class="grid md:grid-cols-3 gap-8 mb-10 items-start">
         <div>
           <div class="mb-3">
             <img src="/images/SkyConnect (PNG).png" alt="SkyConnect" class="h-20 object-contain" />
           </div>
-          <p class="text-sm max-w-xs leading-relaxed" data-i18n="footer_desc">SkyConnect offers VFR flights, Umrah packages and visa handling in partnership with Indus Travel ApS.</p>
+          <p class="text-sm text-neutral-300 font-medium mb-2" data-i18n="footer_tagline">Your journey. Our attention to detail.</p>
+          <p class="text-sm max-w-xs leading-relaxed" data-i18n="footer_desc">From visiting family to spiritual journeys and international study, SkyConnect brings together carefully arranged travel services with personal support at every step.</p>
         </div>
         <div>
-          <p class="text-neutral-300 font-medium mb-3 text-sm" data-i18n="nav_services">Services</p>
+          <p class="text-[#c9a96e] font-semibold mb-3 text-sm" data-i18n="nav_services">Services</p>
           <ul class="space-y-2 text-sm">
-            <li><a href="#services" class="hover:text-white transition" data-i18n="card1_title">VFR Flights</a></li>
+            <li><a href="#services" class="hover:text-white transition" data-i18n="card1_title">Family Travel</a></li>
             <li><a href="#services" class="hover:text-white transition" data-i18n="card2_title">Umrah Packages</a></li>
-            <li><a href="#services" class="hover:text-white transition" data-i18n="card3_title">Visa Handling</a></li>
+            <li><a href="#services" class="hover:text-white transition" data-i18n="card3_title">Visa Assistance</a></li>
             <li><a href="#study" class="hover:text-white transition" data-i18n="study_title">Study Consultancy</a></li>
           </ul>
         </div>
         <div>
-          <p class="text-neutral-300 font-medium mb-3 text-sm" data-i18n="footer_company">Company info</p>
-          <p class="text-sm">NexaTravel (Sole trader: Md Al-Amin)</p>
-          <p class="text-sm">Org.nr: 19930913-5797</p>
-          <p class="text-sm mt-2" data-i18n="footer_guarantee">Travel guarantee via Rejsegarantifonden no. 3238</p>
+          <p class="text-[#c9a96e] font-semibold mb-3 text-sm" data-i18n="footer_company">Company</p>
+          <p class="text-sm">SkyConnect Travels</p>
+          <p class="text-sm" data-i18n="footer_owner">Owner: Aslam Hossain</p>
+          <p class="text-sm" data-i18n="footer_org">Org No: 930420-0158</p>
         </div>
       </div>
       <div class="border-t border-neutral-800/50 pt-6 text-xs text-center">
@@ -600,5 +601,5 @@ function backToTop() {
 }
 
 export function renderApp(c) {
-  return header(c) + hero(c) + booking(c) + services() + whyUs() + study(c) + moments() + trust() + faq() + contact(c) + footer() + floatingWhatsApp(c) + validationModal() + backToTop()
+  return header(c) + hero(c) + booking(c) + services() + whyUs() + study(c) + moments() + trust() + faq() + contact(c) + footer(c) + floatingWhatsApp(c) + validationModal() + backToTop()
 }

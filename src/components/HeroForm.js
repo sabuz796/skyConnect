@@ -66,7 +66,7 @@ export class HeroForm {
 
     return `
       <div class="hero-form-container">
-        <p class="form-caption">Your next journey starts here</p>
+        <p class="form-caption" data-i18n="form_caption">${this.t('form_caption')}</p>
         <div class="service-tabs" role="tablist" aria-orientation="horizontal">
           ${tabs}
         </div>
