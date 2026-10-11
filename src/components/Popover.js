@@ -19,6 +19,17 @@ export class Popover {
   }
 
   openFloating() {
+    // Idempotence guard. AirportSearch calls open() from both `focus` and
+    // `input`, so without this a second open() before close() would record
+    // <body> as _originalParent (the element is already portaled) and stack a
+    // duplicate scroll/resize listener pair. The stranded parent is what
+    // orphans the dropdown out of the form after HeroForm.refreshPanels()
+    // re-renders the panel it belonged to.
+    if (this.isOpen) {
+      this.positionFloating()
+      return
+    }
+
     // Portal to body to escape backdrop-filter containing block
     this._originalParent = this.floatingEl.parentElement
     document.body.appendChild(this.floatingEl)
@@ -44,11 +55,13 @@ export class Popover {
     this.anchor?.setAttribute('aria-expanded', 'false')
     DropdownManager.close(this)
 
-    // Return to original parent
-    if (this._originalParent) {
+    // Return to original parent. If the field wrapper was destroyed while the
+    // popover was open (HeroForm.refreshPanels), the parent is detached - leave
+    // the element where it is so the whole subtree is collected together.
+    if (this._originalParent?.isConnected) {
       this._originalParent.appendChild(this.floatingEl)
-      this._originalParent = null
     }
+    this._originalParent = null
 
     if (this._scrollHandler) {
       window.removeEventListener('scroll', this._scrollHandler)

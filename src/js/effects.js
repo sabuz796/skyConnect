@@ -5,32 +5,39 @@
 export function initHeroGlow(prefersReducedMotion) {
   if (prefersReducedMotion) return
 
-  const hero = document.getElementById('hero')
-  const glow = document.getElementById('hero-glow')
-  const heroPhoto = hero?.querySelector('.hero-photo')
+  // The hero lives inside <main>, which the router replaces on every view
+  // change, so these nodes are resolved inside the handlers instead of being
+  // cached at bind time - a cached reference is detached after the first trip
+  // away from Home and the effect silently stops. The listeners themselves are
+  // registered once, here, and stay for the life of the page.
+  document.addEventListener('mousemove', (e) => {
+    const hero = document.getElementById('hero')
+    const glow = document.getElementById('hero-glow')
+    if (!hero || !glow) return
 
-  if (hero && glow) {
-    hero.addEventListener('mousemove', (e) => {
-      const rect = hero.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-      glow.style.setProperty('--mouse-x', `${x}px`)
-      glow.style.setProperty('--mouse-y', `${y}px`)
-    })
+    const rect = hero.getBoundingClientRect()
+    const inside = e.clientX >= rect.left && e.clientX <= rect.right
+      && e.clientY >= rect.top && e.clientY <= rect.bottom
 
-    hero.addEventListener('mouseleave', () => {
+    // Replaces the old `mouseleave` reset: recentre once the pointer leaves
+    // the hero's box, which the hero may not even have been mounted for.
+    if (!inside) {
       glow.style.setProperty('--mouse-x', '50%')
       glow.style.setProperty('--mouse-y', '50%')
-    })
-  }
+      return
+    }
+
+    glow.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`)
+    glow.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`)
+  }, { passive: true })
 
   // Parallax on hero photo
-  if (heroPhoto) {
-    window.addEventListener('scroll', () => {
-      const rate = window.scrollY * 0.3
-      heroPhoto.style.transform = `scale(1.05) translateY(${rate}px)`
-    }, { passive: true })
-  }
+  window.addEventListener('scroll', () => {
+    const heroPhoto = document.querySelector('.hero-photo')
+    if (!heroPhoto) return
+    const rate = window.scrollY * 0.3
+    heroPhoto.style.transform = `scale(1.05) translateY(${rate}px)`
+  }, { passive: true })
 }
 
 export function initTiltCards(prefersReducedMotion) {
@@ -52,14 +59,6 @@ export function initTiltCards(prefersReducedMotion) {
     card.addEventListener('mouseleave', () => {
       card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)'
     })
-  })
-}
-
-export function initStudyArrows(prefersReducedMotion) {
-  if (prefersReducedMotion) return
-
-  document.querySelectorAll('.study-arrow svg').forEach((arrow) => {
-    arrow.style.animation = 'studyArrowPulse 2s ease-in-out infinite'
   })
 }
 

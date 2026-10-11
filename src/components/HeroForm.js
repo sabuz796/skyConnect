@@ -431,6 +431,7 @@ export class HeroForm {
       this.showError(errors[0])
       return
     }
+    this.clearErrors()
 
     // NOTE: open WhatsApp synchronously inside the user gesture — wrapping
     // window.open in a setTimeout breaks the gesture chain and iOS/Safari
@@ -464,28 +465,44 @@ export class HeroForm {
 
   validate(service, components) {
     const errors = []
+    const fail = (key, message) => errors.push({ key, message, component: components[key] })
 
     if (service === 'flight') {
-      if (!components.from.getValue()) errors.push(t('error_dep_city'))
-      if (!components.to.getValue()) errors.push(t('error_dest'))
-      if (!components.depart.getValue()) errors.push(t('error_dep_date'))
+      if (!components.from.getValue()) fail('from', t('error_dep_city'))
+      if (!components.to.getValue()) fail('to', t('error_dest'))
+      if (!components.depart.getValue()) fail('depart', t('error_dep_date'))
     } else if (service === 'umrah') {
-      if (!components.date.getValue()) errors.push(t('error_dep_date'))
+      if (!components.date.getValue()) fail('date', t('error_dep_date'))
     } else if (service === 'hotel') {
-      if (!components.dest.getValue()) errors.push(t('error_dest_empty'))
-      if (!components.checkin.getValue()) errors.push(t('error_checkin'))
-      if (!components.checkout.getValue()) errors.push(t('error_checkout'))
+      if (!components.dest.getValue()) fail('dest', t('error_dest_empty'))
+      if (!components.checkin.getValue()) fail('checkin', t('error_checkin'))
+      if (!components.checkout.getValue()) fail('checkout', t('error_checkout'))
     }
 
     return errors
   }
 
-  showError(message) {
-    const existing = document.querySelector('.form-error-toast')
-    if (existing) existing.remove()
+  /**
+   * Surface the first validation failure. The toast is the visual channel and
+   * carries role="alert" so it is announced; the failing control is marked
+   * aria-invalid, described by the toast, and focused so keyboard and screen
+   * reader users get the same information sighted users get.
+   *
+   * Deliberately does NOT also write to [data-form-status] (the polite live
+   * region) - that would announce the message twice.
+   */
+  showError(error) {
+    // Tolerate the legacy string form
+    const { message, component } = typeof error === 'string' ? { message: error, component: null } : error
+
+    this.clearErrors()
+
+    const input = component?.input ?? component?.trigger ?? null
 
     const toast = document.createElement('div')
     toast.className = 'form-error-toast'
+    toast.id = 'form-error-toast'
+    toast.setAttribute('role', 'alert')
     toast.textContent = message
     toast.style.cssText = `
       position: fixed;
@@ -501,7 +518,29 @@ export class HeroForm {
       animation: fieldErrorIn 0.2s ease-out;
     `
     document.body.appendChild(toast)
-    setTimeout(() => toast.remove(), 3000)
+
+    if (input) {
+      input.setAttribute('aria-invalid', 'true')
+      input.setAttribute('aria-describedby', toast.id)
+      input.focus()
+    }
+
+    setTimeout(() => {
+      toast.remove()
+      if (input) {
+        input.removeAttribute('aria-invalid')
+        input.removeAttribute('aria-describedby')
+      }
+    }, 3000)
+  }
+
+  /** Drop any toast and aria-invalid state left over from a previous attempt. */
+  clearErrors() {
+    document.getElementById('form-error-toast')?.remove()
+    this.el?.querySelectorAll('[aria-invalid="true"]').forEach((el) => {
+      el.removeAttribute('aria-invalid')
+      el.removeAttribute('aria-describedby')
+    })
   }
 
   buildMessage(service, components) {
@@ -555,6 +594,9 @@ export class HeroForm {
   }
 
   refreshPanels() {
+    // Any error state points at inputs that are about to be replaced.
+    this.clearErrors()
+
     // Snapshot current values
     const snapshot = {}
     for (const [service, components] of Object.entries(this.formComponents)) {

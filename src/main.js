@@ -1,61 +1,37 @@
 import './styles/main.css'
 import { renderApp } from './app.js'
-import { HeroForm } from './components/HeroForm.js'
-import { initI18n, applyTranslations } from './js/i18n.js'
+import { initI18n } from './js/i18n.js'
 import { initTheme } from './js/theme.js'
-import { initHeroGlow, initTiltCards, initStudyArrows, initFloatingWhatsappEntrance } from './js/effects.js'
-import {
-  initHeaderControls,
-  initValidationModal,
-  initAccordion,
-  initRevealObserver,
-  initGallery,
-  initBackToTop,
-  initBlurUpImages,
-  initSmoothScroll
-} from './js/ui.js'
+import { initHeroGlow, initFloatingWhatsappEntrance } from './js/effects.js'
+import { initHeaderControls, initBackToTop } from './js/ui.js'
+import { initRouter } from './js/views.js'
 import { WHATSAPP_NUMBER, PHONE_NUMBER, PHONE_LINK, CONTACT_EMAIL } from './js/config.js'
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-// Render the app
-document.getElementById('app').innerHTML = renderApp({
+const CONFIG = {
   whatsappNumber: WHATSAPP_NUMBER,
   phoneNumber: PHONE_NUMBER,
   phoneLink: PHONE_LINK,
   emailAddress: CONTACT_EMAIL,
-})
+}
 
-// Init theme & i18n
+// Render the shell: header + <main id="view-root"> + footer + floating actions.
+document.getElementById('app').innerHTML = renderApp(CONFIG)
+
 initTheme()
 initI18n()
 
-// ========== HERO FORM ==========
-const heroForm = new HeroForm({ lang: document.documentElement.lang || 'en' })
-const heroFormContainer = document.getElementById('hero-form')
-if (heroFormContainer) {
-  heroFormContainer.innerHTML = heroForm.render()
-  heroForm.bindEvents(heroFormContainer)
-}
-
-// Re-apply translations after language change
-window.addEventListener('languagechange', () => {
-  applyTranslations()
-  heroForm.setLanguage(document.documentElement.lang || 'en')
-})
+// Bind the first view. This also builds the booking form, applies translations
+// and runs the per-view effects that renderApp's markup alone cannot.
+initRouter(CONFIG)
 
 // ========== EFFECTS ==========
+// These bind to `window` or to nodes outside <main>, so they run once here and
+// are deliberately NOT re-run by views.js on every swap.
 initHeroGlow(prefersReducedMotion)
-initTiltCards(prefersReducedMotion)
-initStudyArrows(prefersReducedMotion)
 initFloatingWhatsappEntrance(prefersReducedMotion)
 
 // ========== UI ==========
 initHeaderControls()
-initValidationModal()
-initAccordion()
-initRevealObserver(prefersReducedMotion)
-initGallery()
 initBackToTop()
-initBlurUpImages()
-initSmoothScroll()

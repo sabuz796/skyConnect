@@ -1,10 +1,16 @@
 /**
- * ui.js — interactive UI wiring: header controls, modal, accordion,
- * reveal observers, gallery, back-to-top, lazy images, smooth scroll.
+ * ui.js — interactive UI wiring: header controls, reveal observers,
+ * back-to-top, lazy images, smooth scroll.
  */
 
-import { setLanguage } from './i18n.js'
+import { setLanguage, t } from './i18n.js'
 import { toggleTheme } from './theme.js'
+import { CONTACT_EMAIL } from './config.js'
+import { buildMailtoUrl, isValidEmail } from '../lib/mailto.js'
+
+/** Kept at module scope so views.js can re-run initRevealObserver on every
+ *  view swap without stacking observers on the same elements. */
+let revealObserver = null
 
 export function initHeaderControls() {
   // Theme toggle
@@ -75,57 +81,14 @@ export function initHeaderControls() {
   })
 }
 
-export function initValidationModal() {
-  function closeModal() {
-    const modal = document.getElementById('validation-modal')
-    if (modal) {
-      modal.classList.remove('is-open')
-      modal.classList.add('hidden')
-    }
-  }
-
-  document.getElementById('modal-close')?.addEventListener('click', closeModal)
-  document.getElementById('modal-backdrop')?.addEventListener('click', closeModal)
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal()
-  })
-}
-
-export function initAccordion() {
-  document.querySelectorAll('.accordion-trigger').forEach((trigger) => {
-    trigger.addEventListener('click', () => {
-      const content = trigger.nextElementSibling
-      const isOpen = content.classList.contains('is-open')
-      const icon = trigger.querySelector('svg')
-
-      // Close all others
-      document.querySelectorAll('.accordion-content.is-open').forEach((openContent) => {
-        if (openContent !== content) {
-          openContent.classList.remove('is-open')
-          const openTrigger = openContent.previousElementSibling
-          if (openTrigger) {
-            openTrigger.setAttribute('aria-expanded', 'false')
-            const openSvg = openTrigger.querySelector('svg')
-            if (openSvg) openSvg.style.transform = ''
-          }
-        }
-      })
-
-      if (isOpen) {
-        content.classList.remove('is-open')
-        trigger.setAttribute('aria-expanded', 'false')
-        icon.style.transform = ''
-      } else {
-        content.classList.add('is-open')
-        trigger.setAttribute('aria-expanded', 'true')
-        icon.style.transform = 'rotate(180deg)'
-      }
-    })
-  })
-}
-
 export function initRevealObserver(prefersReducedMotion) {
   if (!('IntersectionObserver' in window)) return
+
+  // views.js calls this on every view swap. Drop the previous observer first:
+  // re-rendered elements are brand new nodes, so without the disconnect they
+  // would be observed a second time and the already-revealed ones would never
+  // re-trigger, leaving content stuck at its hidden initial state.
+  if (revealObserver) revealObserver.disconnect()
 
   const observerCallback = (entries) => {
     entries.forEach((entry) => {
@@ -133,75 +96,31 @@ export function initRevealObserver(prefersReducedMotion) {
 
       const el = entry.target
       el.classList.add('is-visible')
-      unifiedObserver.unobserve(el)
+      revealObserver.unobserve(el)
     })
   }
 
-  const unifiedObserver = new IntersectionObserver(observerCallback, {
+  revealObserver = new IntersectionObserver(observerCallback, {
     threshold: 0.12,
     rootMargin: '0px 0px -40px 0px'
   })
 
+  // Opt the CSS into its hidden initial states only now that the observer which
+  // will un-hide them exists. Until this line runs, main.css's fallback block
+  // keeps every `.reveal` / `.section-fade` visible, so a throw anywhere earlier
+  // in main.js degrades to "no animation" instead of a blank page.
+  document.documentElement.classList.add('js-reveal')
+
   // Observe all animated elements
-  document.querySelectorAll('.reveal, .section-fade, [data-service-reveal], [data-trust-reveal], [data-faq-reveal], [data-study-reveal]').forEach((el) => {
-    unifiedObserver.observe(el)
+  document.querySelectorAll('.reveal, .section-fade, [data-service-reveal], [data-trust-reveal], [data-study-reveal]').forEach((el) => {
+    revealObserver.observe(el)
   })
 
   // Add entrance classes (CSS handles the animation)
   if (!prefersReducedMotion) {
     document.querySelectorAll('[data-service-reveal]').forEach((el) => el.classList.add('service-enter'))
     document.querySelectorAll('[data-trust-reveal]').forEach((el) => el.classList.add('trust-enter'))
-    document.querySelectorAll('[data-faq-reveal]').forEach((el) => el.classList.add('faq-enter'))
     document.querySelectorAll('[data-study-reveal]').forEach((el) => el.classList.add('study-enter'))
-  }
-}
-
-export function initGallery() {
-  const galleryScroll = document.getElementById('gallery-scroll')
-  const galleryPrev = document.getElementById('gallery-prev')
-  const galleryNext = document.getElementById('gallery-next')
-
-  if (!galleryScroll || !galleryPrev || !galleryNext) return
-
-  function getCardWidth() {
-    const card = galleryScroll.querySelector('.moment-card')
-    if (!card) return 400
-    return card.offsetWidth + parseFloat(getComputedStyle(galleryScroll).gap)
-  }
-
-  function updateGalleryButtons() {
-    const { scrollLeft, scrollWidth, clientWidth } = galleryScroll
-    galleryPrev.disabled = scrollLeft <= 10
-    galleryNext.disabled = scrollLeft + clientWidth >= scrollWidth - 10
-  }
-
-  galleryPrev.addEventListener('click', () => {
-    galleryScroll.scrollBy({ left: -getCardWidth(), behavior: 'smooth' })
-  })
-
-  galleryNext.addEventListener('click', () => {
-    galleryScroll.scrollBy({ left: getCardWidth(), behavior: 'smooth' })
-  })
-
-  galleryScroll.addEventListener('scroll', updateGalleryButtons, { passive: true })
-  updateGalleryButtons()
-
-  // Reveal cards as they scroll into viewport
-  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const galleryObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible')
-        }
-      })
-    }, {
-      root: galleryScroll,
-      threshold: 0.3
-    })
-
-    galleryScroll.querySelectorAll('.moment-card').forEach((card) => {
-      galleryObserver.observe(card)
-    })
   }
 }
 
@@ -230,6 +149,10 @@ export function initBackToTop() {
 }
 
 export function initBlurUpImages() {
+  // Same gate as initRevealObserver - `.blur-load` is blurred in CSS and only
+  // un-blurred here, so the gallery must not depend on this having run.
+  document.documentElement.classList.add('js-reveal')
+
   document.querySelectorAll('.blur-load').forEach((img) => {
     if (img.complete) {
       img.classList.add('is-loaded')
@@ -244,14 +167,100 @@ export function initBlurUpImages() {
 export function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
-      const targetId = anchor.getAttribute('href')
-      if (targetId === '#') return
-      const target = document.querySelector(targetId)
+      const href = anchor.getAttribute('href')
+      if (!href || href === '#') return
+      // View routes ('#/services') belong to the router, which reacts to
+      // hashchange. Running them through querySelector here would throw on
+      // the '/' - an invalid selector - and take the whole click with it.
+      if (href.startsWith('#/')) return
+      const target = document.querySelector(href)
       if (target) {
         e.preventDefault()
         target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        history.pushState(null, '', targetId)
+        // replaceState, not pushState: pushing the fragment here would add a
+        // bogus history entry and break the back button that hash routing
+        // depends on. Skipped entirely while a view route is current, because
+        // '#contact' is not a route and writing it over '#/study' would send a
+        // reload to Home.
+        if (!window.location.hash.startsWith('#/')) {
+          window.history.replaceState(null, '', href)
+        }
       }
     })
+  })
+}
+
+/**
+ * Wire up the contact form on the Contact view.
+ *
+ * There is no backend: a valid submit composes a mailto: URL and hands it to
+ * `window.location.href`, which opens the visitor's own mail client addressed
+ * to CONTACT_EMAIL with the request pre-filled.
+ *
+ * Called from bindView() on every view swap, because the form lives inside
+ * <main> and innerHTML replacement would otherwise leave this listener
+ * attached to a detached node.
+ */
+export function initContactForm() {
+  const form = document.getElementById('contact-form')
+  if (!form) return
+
+  const emailError = (value) => {
+    if (!value.trim()) return 'contact_err_email'
+    return isValidEmail(value) ? null : 'contact_err_email_format'
+  }
+
+  const rules = {
+    'cf-name': (v) => (v.trim() ? null : 'contact_err_name'),
+    'cf-email': emailError,
+    'cf-message': (v) => (v.trim() ? null : 'contact_err_message')
+  }
+
+  const input = (id) => form.querySelector(`#${id}`)
+  const value = (id) => input(id)?.value ?? ''
+
+  /** Show or clear a field's inline error, mirroring the booking form's treatment. */
+  const showError = (el, key) => {
+    const error = document.getElementById(`${el.id}-error`)
+    if (!error) return
+    error.textContent = key ? t(key) : ''
+    error.classList.toggle('hidden', !key)
+    if (key) el.setAttribute('aria-invalid', 'true')
+    else el.removeAttribute('aria-invalid')
+  }
+
+  // Clear an error as soon as the visitor starts fixing that field, so the
+  // message disappears the moment it stops being true.
+  for (const [id, validate] of Object.entries(rules)) {
+    input(id)?.addEventListener('input', () => {
+      const el = input(id)
+      if (el.getAttribute('aria-invalid') === 'true') showError(el, validate(el.value))
+    })
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    let firstInvalid = null
+    for (const [id, validate] of Object.entries(rules)) {
+      const el = input(id)
+      if (!el) continue
+      const key = validate(el.value)
+      showError(el, key)
+      if (key && !firstInvalid) firstInvalid = el
+    }
+
+    if (firstInvalid) {
+      firstInvalid.focus()
+      return
+    }
+
+    window.location.href = buildMailtoUrl({
+      email: CONTACT_EMAIL,
+      name: value('cf-name'),
+      from: value('cf-email'),
+      topic: value('cf-topic'),
+      message: value('cf-message')
+    }, t)
   })
 }

@@ -13,7 +13,7 @@
     <meta property="og:description" content="Specialized in VFR flights, complete Umrah packages and smooth visa handling." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://skyconnect-travels.se/" />
-    <meta property="og:image" content="https://skyconnect-travels.se/images/hero-flight.jpg" />
+    <meta property="og:image" content="https://skyconnect-travels.se/images/hero-flight-1920w.jpg" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="sv_SE" />
     <meta property="og:locale:alternate" content="bn_BD" />
@@ -23,7 +23,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="SkyConnect | VFR Flights, Umrah & Visa" />
     <meta name="twitter:description" content="Specialized in VFR flights, complete Umrah packages and smooth visa handling." />
-    <meta name="twitter:image" content="https://skyconnect-travels.se/images/hero-flight.jpg" />
+    <meta name="twitter:image" content="https://skyconnect-travels.se/images/hero-flight-1920w.jpg" />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -55,12 +55,18 @@
 
     <title>SkyConnect | VFR Flights, Umrah & Visa</title>
 
-    <!-- Set lang from localStorage before render -->
+    <!-- Set lang from localStorage before render. Guarded because the webview
+         and private-mode storage restrictions throw on access, and this runs
+         before anything else in the page. -->
     <script>
       (function() {
-        var lang = localStorage.getItem('skyconnect-lang');
-        if (lang === 'sv' || lang === 'bn') {
-          document.documentElement.lang = lang;
+        try {
+          var lang = localStorage.getItem('skyconnect-lang');
+          if (lang === 'sv' || lang === 'bn') {
+            document.documentElement.lang = lang;
+          }
+        } catch (e) {
+          /* storage blocked - keep the defaults */
         }
       })();
     </script>
