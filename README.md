@@ -41,6 +41,9 @@ npm test
 # Build for production
 npm run build
 
+# Regenerate all image derivatives from originals/
+npm run images
+
 # Preview production build
 npm run preview
 ```
@@ -51,10 +54,13 @@ npm run preview
 skyconnect/
 ├── index.html                  # Shell + skeleton loader + SEO
 ├── vite.config.js
+├── originals/                  # Pristine image sources (gitignored)
+├── scripts/
+│   └── optimize-images.mjs     # Generates public/images/ from originals/
 ├── public/
 │   ├── favicon.svg
 │   ├── fonts/                  # Self-hosted Inter + Playfair Display
-│   └── images/                 # Hero, gallery and section photos
+│   └── images/                 # Generated WebP + JPEG derivatives
 └── src/
     ├── main.js                 # Entry point
     ├── app.js                  # Main HTML template
@@ -91,6 +97,32 @@ skyconnect/
 | Translations | `src/i18n/*.json` (keep all 3 files in sync) |
 | Brand colors | `src/styles/tokens.css` / `main.css` |
 | Airport data | `src/data/airports.json` |
+
+## 🖼️ Images
+
+Every photo ships as a `<picture>`: a WebP `<source srcset>` (what ~97% of browsers
+take) with a JPEG `<img>` fallback. Nothing in `public/images/` is edited by hand —
+it is all generated from the pristine sources in `originals/`:
+
+```bash
+npm run images          # regenerate public/images/ from originals/
+```
+
+`originals/` is gitignored, so **get the originals from a teammate before running
+it** — only the optimised derivatives are committed. `scripts/optimize-images.mjs`
+holds a `SPEC` table of which widths to emit per asset, derived from the largest CSS
+width each image is displayed at.
+
+To add or replace an image:
+
+1. Drop the original into `originals/`
+2. Add it to `SPEC` in `scripts/optimize-images.mjs`
+3. Run `npm run images`
+4. Reference it in `src/app.js` via the `picture()` helper, passing the full width
+   ladder from `SPEC` plus a `sizes` value matching where it renders
+
+The script throws if an asset has no `SPEC` entry, so a forgotten one fails loudly
+instead of silently shipping an unresized original.
 
 ## 📄 License
 

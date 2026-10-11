@@ -6,3 +6,7 @@ dist/
 *.local
 .env
 .env.*
+
+# Pristine image sources. Everything in public/images/ is generated from these
+# by `npm run images` (scripts/optimize-images.mjs) - see the header there.
+originals/
