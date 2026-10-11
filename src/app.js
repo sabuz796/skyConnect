@@ -14,6 +14,14 @@
  *
  * @param {object} o
  * @param {string} o.stem          shared basename, e.g. 'hero-flight'
+/**
+ * Asset root, so this works both at `/` locally and on the `/skyConnect/`
+ * project subpath. Vite substitutes this at build time, and it carries the
+ * trailing slash already — so `${BASE}images/x` needs no separator.
+ */
+const BASE = import.meta.env.BASE_URL
+
+/**
  * @param {number[]} o.widths      emitted widths, widest first
  * @param {string} o.sizes         sizes attribute
  * @param {string} o.pictureClass  layout classes for the wrapper
@@ -23,8 +31,8 @@
  * @param {number} [o.w] [o.h]     intrinsic size of the fallback, for CLS
  */
 function picture({ stem, widths, sizes, pictureClass, alt = '', imgClass = '', attrs = '', w, h }) {
-    const srcset = widths.map((width) => `/images/${stem}-${width}w.webp ${width}w`).join(', ')
-    const fallback = `/images/${stem}-${Math.max(...widths)}w.jpg`
+    const srcset = widths.map((width) => `${BASE}images/${stem}-${width}w.webp ${width}w`).join(', ')
+    const fallback = `${BASE}images/${stem}-${Math.max(...widths)}w.jpg`
     const dims = w && h ? `width="${w}" height="${h}"` : ''
     const attrs2 = [
       `src="${fallback}"`,
@@ -47,7 +55,7 @@ function header(c) {
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="flex items-center justify-between h-[72px]">
         <a href="#" class="flex items-center">
-          <img src="/images/skyconnect-logo.png" alt="SkyConnect" class="h-14 object-contain" width="320" height="132" />
+          <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-14 object-contain" width="320" height="132" />
         </a>
 
         <nav class="hidden md:flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400" aria-label="Main">
@@ -519,7 +527,7 @@ function footer(c) {
       <div class="grid md:grid-cols-3 gap-8 mb-10 items-start">
         <div>
           <div class="mb-3">
-            <img src="/images/skyconnect-logo.png" alt="SkyConnect" class="h-20 object-contain" width="320" height="132" />
+            <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-20 object-contain" width="320" height="132" />
           </div>
           <p class="text-sm text-neutral-300 font-medium mb-2" data-i18n="footer_tagline">Your journey. Our attention to detail.</p>
           <p class="text-sm max-w-xs leading-relaxed" data-i18n="footer_desc">From visiting family to spiritual journeys and international study, SkyConnect brings together carefully arranged travel services with personal support at every step.</p>
