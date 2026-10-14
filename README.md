@@ -6,14 +6,14 @@
 
 ## 🌟 About
 
-SkyConnect is a modern, minimalistic travel agency website built for a Swedish travel company. It helps customers book VFR flights to South Asia & Southeast Asia, complete Umrah packages, visa handling, and study consultancy services. All requests go directly through WhatsApp.
+SkyConnect is a modern, minimalistic travel agency website built for a Swedish travel company. It helps customers book VFR flights to South Asia & Southeast Asia, complete Umrah packages, visa handling, and study consultancy services. Visitors enquire through the contact form or directly over WhatsApp.
 
 ## ✨ Features
 
 - 🌙 **Dark mode** — persisted in localStorage
 - 🌐 **3 languages** — English, Swedish, Bangla
 - 📱 **Fully responsive** — works on mobile, tablet, and desktop
-- 💬 **Request forms** — Flight / Umrah / Hotel → WhatsApp
+- 💬 **Contact form** — validation + mailto handoff to the agency inbox
 - 🎓 **Study consultancy** — university admissions, student visa, pre-departure
 - ⚡ **Blazing fast** — pure frontend, no framework
 - ♿ **Accessible** — keyboard navigation, ARIA labels, reduced motion support
@@ -66,17 +66,7 @@ skyconnect/
     ├── app.js                  # Main HTML template
     ├── styles/
     │   ├── tokens.css          # Design tokens (CSS custom properties)
-    │   ├── main.css            # Tailwind + page styles
-    │   └── hero-form.css       # Booking form styles
-    ├── components/
-    │   ├── HeroForm.js         # Booking form (flight / Umrah / hotel tabs)
-    │   ├── AirportSearch.js    # Combobox airport/city search
-    │   ├── DatePicker.js       # Calendar (single + range mode)
-    │   ├── PassengerStepper.js # Adults / children / infants counters
-    │   ├── Popover.js          # Shared floating-layer base class
-    │   └── DropdownManager.js  # Singleton dropdown manager
-    ├── data/
-    │   └── airports.json       # Airport dataset
+    │   └── main.css            # Tailwind + page styles
     ├── i18n/
     │   ├── en.json             # English (default)
     │   ├── sv.json             # Swedish
@@ -96,7 +86,6 @@ skyconnect/
 | WhatsApp number | `src/js/config.js` |
 | Translations | `src/i18n/*.json` (keep all 3 files in sync) |
 | Brand colors | `src/styles/tokens.css` / `main.css` |
-| Airport data | `src/data/airports.json` |
 
 ## 🖼️ Images
 
@@ -126,4 +115,4 @@ instead of silently shipping an unresized original.
 
 ## 📄 License
 
-MIT License © 2026 SkyConnect
+© 2026 SkyConnect Travels. All rights reserved.

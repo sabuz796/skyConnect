@@ -14,7 +14,7 @@
 import { viewContent } from '../app.js'
 import { applyTranslations } from './i18n.js'
 import { initTiltCards } from './effects.js'
-import { initRevealObserver, initBlurUpImages, initSmoothScroll, initContactForm } from './ui.js'
+import { initRevealObserver, initSmoothScroll, initContactForm } from './ui.js'
 
 export const VIEWS = ['home', 'services', 'study', 'contact']
 
@@ -32,7 +32,6 @@ export function viewFromHash(hash = window.location.hash) {
 function bindView() {
   initRevealObserver(prefersReducedMotion)
   initTiltCards(prefersReducedMotion)
-  initBlurUpImages()
   initSmoothScroll()
   // would leave the listener pointing at a detached node after one swap.
   initContactForm()

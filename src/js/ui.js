@@ -148,22 +148,6 @@ export function initBackToTop() {
   })
 }
 
-export function initBlurUpImages() {
-  // Same gate as initRevealObserver - `.blur-load` is blurred in CSS and only
-  // un-blurred here, so the gallery must not depend on this having run.
-  document.documentElement.classList.add('js-reveal')
-
-  document.querySelectorAll('.blur-load').forEach((img) => {
-    if (img.complete) {
-      img.classList.add('is-loaded')
-    } else {
-      img.addEventListener('load', () => {
-        img.classList.add('is-loaded')
-      })
-    }
-  })
-}
-
 export function initSmoothScroll() {
   document.getElementById('view-root')?.querySelectorAll('a[href^="#"]')?.forEach((anchor) => {
     anchor.addEventListener('click', (e) => {

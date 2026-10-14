@@ -138,8 +138,9 @@ function hero(c) {
       <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         <div class="lg:col-span-7">
           <h1 id="hero-title" class="headline-display text-4xl sm:text-5xl md:text-6xl text-neutral-900 dark:text-white mb-6">
-            <span data-i18n="hero_title_1">Travel,</span><br>
-            <span class="text-[#c9a96e]" data-i18n="hero_title_2">elevated.</span>
+            <span data-i18n="hero_title_1">Where every journey</span><br>
+            <span data-i18n="hero_title_1b">feels</span>
+            <span class="text-[#c9a96e]" data-i18n="hero_title_2">exceptional.</span>
           </h1>
           <p id="hero-subtitle" class="text-lg text-neutral-500 dark:text-neutral-400 max-w-md leading-relaxed mb-6" data-i18n="hero_desc">
             Specialized in VFR flights to South Asia & Southeast Asia, complete Umrah packages and smooth visa handling.
