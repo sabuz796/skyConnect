@@ -60,7 +60,9 @@ async function emit(inputPath, width, format, quality, outName) {
 
   let converter
   if (format === 'webp') converter = sharp(inputPath, { failOn: 'none' }).webp({ quality })
-  else if (format === 'png') converter = sharp(inputPath, { failOn: 'none' }).png({ compressionLevel: 9, effort: 7 })
+  // PNG is logo-only: trim transparent padding so the glyph aligns with
+  // neighbouring text, then emit lossless-ish because text edges matter.
+  else if (format === 'png') converter = sharp(inputPath, { failOn: 'none' }).trim().png({ compressionLevel: 9, effort: 7 })
   else converter = sharp(inputPath, { failOn: 'none' }).jpeg({ quality, mozjpeg: true, progressive: true })
 
   await mkdir(OUT, { recursive: true })

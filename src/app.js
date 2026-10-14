@@ -55,7 +55,7 @@ function header(c) {
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="flex items-center justify-between h-[72px]">
         <a href="#" class="flex items-center">
-          <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-18 object-contain" width="320" height="132" />
+          <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-10 object-contain" width="277" height="71" />
         </a>
 
         <nav class="hidden md:flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400" aria-label="Main">
@@ -510,16 +510,16 @@ function footer(c) {
   <!-- FOOTER -->
   <footer class="bg-[#0a0f1a] text-neutral-500 py-12 border-t border-neutral-800/50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid md:grid-cols-3 gap-8 mb-10 items-start">
+      <div class="grid md:grid-cols-[1.4fr_0.7fr_1fr] gap-8 mb-10 items-start">
         <div>
           <div class="mb-3">
-            <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-20 object-contain" width="320" height="132" />
+            <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-12 object-contain" width="277" height="71" />
           </div>
           <p class="text-sm text-neutral-300 font-medium mb-2" data-i18n="footer_tagline">Your journey. Our attention to detail.</p>
           <p class="text-sm max-w-xs leading-relaxed" data-i18n="footer_desc">From visiting family to spiritual journeys and international study, SkyConnect brings together carefully arranged travel services with personal support at every step.</p>
         </div>
         <div>
-          <p class="text-[#c9a96e] font-semibold mb-3 text-sm" data-i18n="nav_services">Services</p>
+          <p class="text-[#c9a96e] font-semibold mb-3 text-sm min-h-[48px] flex items-end" data-i18n="nav_services">Services</p>
           <ul class="space-y-2 text-sm">
             <li><a href="#/services" class="hover:text-white transition" data-i18n="card1_title">Family Travel</a></li>
             <li><a href="#/services" class="hover:text-white transition" data-i18n="card2_title">Umrah Packages</a></li>
@@ -527,11 +527,13 @@ function footer(c) {
           </ul>
         </div>
         <div>
-          <p class="text-[#c9a96e] font-semibold mb-3 text-sm" data-i18n="footer_company">Company</p>
-          <p class="text-sm">SkyConnect Travels</p>
-          <p class="text-sm" data-i18n="footer_owner">Owner: Aslam Hossain</p>
-          <p class="text-sm" data-i18n="footer_org">Org No: 930420-0158</p>
-          <a href="mailto:${c.emailAddress}" class="block text-sm mt-1 text-[#c9a96e] hover:text-white transition break-words">${c.emailAddress}</a>
+          <p class="text-[#c9a96e] font-semibold mb-3 text-sm min-h-[48px] flex items-end" data-i18n="footer_company">Company</p>
+          <div class="space-y-2 text-sm">
+            <p>SkyConnect Travels</p>
+            <p data-i18n="footer_owner">Owner: Aslam Hossain</p>
+            <p data-i18n="footer_org">Org No: 930420-0158</p>
+            <a href="mailto:${c.emailAddress}" class="block text-[#c9a96e] hover:text-white transition break-words">${c.emailAddress}</a>
+          </div>
         </div>
       </div>
       <div class="border-t border-neutral-800/50 pt-6 text-xs text-center">
