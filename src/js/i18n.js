@@ -5,7 +5,8 @@ import bn from '../i18n/bn.json'
 const translations = { en, sv, bn }
 const languageFlags = { en: '🌐', sv: '🇸🇪', bn: '🇧🇩' }
 
-let currentLang = localStorage.getItem('skyconnect-lang') || 'en'
+let currentLang = 'en'
+try { currentLang = localStorage.getItem('skyconnect-lang') || 'en' } catch {}
 
 export function getLang() {
   return currentLang
@@ -18,7 +19,7 @@ export function t(key) {
 export function setLanguage(lang) {
   if (!translations[lang]) return
   currentLang = lang
-  localStorage.setItem('skyconnect-lang', lang)
+  try { localStorage.setItem('skyconnect-lang', lang) } catch {}
   document.documentElement.lang = lang
   applyTranslations()
   window.dispatchEvent(new CustomEvent('languagechange', { detail: lang }))

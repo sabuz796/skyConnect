@@ -165,7 +165,7 @@ export function initBlurUpImages() {
 }
 
 export function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  document.getElementById('view-root')?.querySelectorAll('a[href^="#"]')?.forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
       const href = anchor.getAttribute('href')
       if (!href || href === '#') return

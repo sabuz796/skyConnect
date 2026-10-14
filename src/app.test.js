@@ -15,16 +15,16 @@ import sv from './i18n/sv.json'
 import bn from './i18n/bn.json'
 
 const CONFIG = {
-  whatsappNumber: '46739786740',
-  phoneNumber: '+46 73 978 67 40',
-  phoneLink: '+46739786740',
+  whatsappNumber: '46760139960',
+  phoneNumber: '+46 76 013 99 60',
+  phoneLink: '+46760139960',
   emailAddress: 'info@skyconnect-travels.se',
 }
 
 const VIEWS = ['home', 'services', 'study', 'contact']
 const SECTIONS = {
   home: ['hero', 'why-trust'],
-  services: ['services', 'booking'],
+  services: ['services'],
   study: ['study'],
   contact: ['contact'],
 }
@@ -87,6 +87,12 @@ describe('view routing', () => {
       }
     }
   })
+
+  it('shows How it works inside the services view with a contact CTA', () => {
+    expect(VIEW_HTML.services).toContain('data-i18n="how_title"')
+    expect(VIEW_HTML.services).toContain('data-i18n="how1_title"')
+    expect(VIEW_HTML.services).toContain('href="#/contact"')
+  })
 })
 
 describe('app shell', () => {
@@ -105,6 +111,11 @@ describe('app shell', () => {
   it('keeps the WhatsApp booking link intact', () => {
     expect(ALL_HTML).toContain(`https://wa.me/${CONFIG.whatsappNumber}`)
     expect(ALL_HTML).toContain(`tel:${CONFIG.phoneLink}`)
+  })
+
+  it('shows the email under Company in the footer', () => {
+    expect(SHELL).toContain(`mailto:${CONFIG.emailAddress}`)
+    expect(SHELL).toContain(CONFIG.emailAddress)
   })
 })
 
@@ -284,19 +295,17 @@ describe('layout positions', () => {
 })
 
 describe('trust band', () => {
-  it('replaces why-us + trust with three cards and a partner strip', () => {
+  it('replaces why-us + trust with three cards and no partner strip', () => {
     const home = VIEW_HTML.home
     expect(home).toContain('id="why-trust"')
     expect((home.match(/class="trust-item /g) || []).length).toBe(3)
-    expect(home).toContain('Airticket AS')
-    expect(home).toContain('Storgata 3, 0155 Oslo')
+    expect(home).not.toContain('Airticket AS')
+    expect(home).not.toContain('trustband_partners')
     expect(home).toContain('data-trust-reveal')
   })
 
   it('publishes no phone number, contract date, price or guarantee', () => {
     const home = stripNonText(VIEW_HTML.home)
-    // The address is the only literal fact the trust band publishes.
-    expect(home).toContain('Storgata 3, 0155 Oslo')
     expect(home).not.toContain('2242')                      // Airticket's switchboard
     expect(home).not.toMatch(/\btel:/)                      // no phone link
     expect(home).not.toMatch(/\+\d{2}/)                     // no country code
@@ -349,7 +358,7 @@ describe('i18n coverage', () => {
 
   it('has no key left over from a deleted section', () => {
     const dead = Object.keys(en).filter((k) =>
-      /^(faq\d|faq_|moments?|moment\d|whyus\d|whyus_|trust[123]?_|card3_|nav_moments)/.test(k))
+      /^(faq\d|faq_|moments?|moment\d|whyus\d|whyus_|trust[123]?_|card3_|nav_moments|booking_|tab_|label_|opt_|preset_|msg_(?!na$)|error_|email_fallback|passengers|infants_hint|btn_(flight|umrah|hotel)|form_caption|no_airports|clear|apply)/.test(k))
     expect(dead).toEqual([])
   })
 })

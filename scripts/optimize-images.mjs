@@ -39,12 +39,6 @@ const WEBP_QUALITY = 78
 const SPEC = {
   'hero-flight.jpg': [1920, 1280, 800, 480],
   'humboldt-university.jpg': [1920, 1280, 800, 480],
-  'dubai.jpg': [800, 480],
-  'airplane-wing.jpg': [800, 480],
-  'alpine-boats.jpg': [800, 480],
-  'mountain-lake.jpg': [800, 480],
-  'passports.jpg': [800, 480],
-  'travel-flatlay.jpg': [800, 480],
 }
 
 /** Assets that are not photographic <img> content. */

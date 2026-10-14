@@ -13,7 +13,6 @@
 
 import { viewContent } from '../app.js'
 import { applyTranslations } from './i18n.js'
-import { HeroForm } from '../components/HeroForm.js'
 import { initTiltCards } from './effects.js'
 import { initRevealObserver, initBlurUpImages, initSmoothScroll, initContactForm } from './ui.js'
 
@@ -21,9 +20,6 @@ export const VIEWS = ['home', 'services', 'study', 'contact']
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-/** The booking form is a component instance, not markup, so it cannot be
- *  restored from the DOM - it has to be rebuilt after every swap. */
-let heroForm = null
 let appConfig = null
 
 /** Normalise '#/services', '#services' or '#/services/extra' to a view name. */
@@ -34,20 +30,10 @@ export function viewFromHash(hash = window.location.hash) {
 
 /** Re-bind everything that lives inside <main>. Safe to call repeatedly. */
 function bindView() {
-  const formHost = document.getElementById('hero-form')
-  if (formHost) {
-    heroForm = new HeroForm({ lang: document.documentElement.lang || 'en' })
-    formHost.innerHTML = heroForm.render()
-    heroForm.bindEvents(formHost)
-  } else {
-    heroForm = null
-  }
-
   initRevealObserver(prefersReducedMotion)
   initTiltCards(prefersReducedMotion)
   initBlurUpImages()
   initSmoothScroll()
-  // Same rule as HeroForm above: the form lives in <main>, so binding it once
   // would leave the listener pointing at a detached node after one swap.
   initContactForm()
 }
@@ -94,6 +80,5 @@ export function initRouter(config) {
   // The form lives here, so its language does too.
   window.addEventListener('languagechange', () => {
     applyTranslations()
-    if (heroForm) heroForm.setLanguage(document.documentElement.lang || 'en')
   })
 }

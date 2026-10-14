@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "./tokens.css";
-@import "./hero-form.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -389,7 +388,16 @@ picture > img {
 }
 
 .service-card:hover .service-icon {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.1);
+}
+
+/* Card aura: gold number glows softly on hover (same expo easing as cards) */
+.card-num {
+  transition: text-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-aura:hover .card-num {
+  text-shadow: 0 0 26px rgb(201 169 110 / 0.65);
 }
 
 .service-card.service-enter {
@@ -429,7 +437,8 @@ picture > img {
   .service-icon,
   .trust-copy,
   .trust-item,
-  .trust-item::before {
+  .trust-item::before,
+  .btn-sheen::after {
     animation: none !important;
     transition: none;
   }
@@ -495,6 +504,24 @@ picture > img {
 @keyframes trustAccent {
   from { transform: scaleY(0); }
   to { transform: scaleY(1); }
+}
+
+/* ===== How it works hover FX (gold glow + CTA sheen) ===== */
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.35) 50%, transparent 60%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.btn-sheen:hover::after {
+  animation: btnSheen 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes btnSheen {
+  to { transform: translateX(120%); }
 }
 
 .tab-active {

@@ -1,7 +1,8 @@
 const STORAGE_KEY = 'skyconnect-theme'
 
 export function initTheme() {
-  const saved = localStorage.getItem(STORAGE_KEY)
+  let saved = null
+  try { saved = localStorage.getItem(STORAGE_KEY) } catch {}
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
 
   if (saved === 'dark' || (!saved && prefersDark)) {
@@ -13,7 +14,7 @@ export function initTheme() {
 
 export function toggleTheme() {
   const isDark = document.documentElement.classList.toggle('dark')
-  localStorage.setItem(STORAGE_KEY, isDark ? 'dark' : 'light')
+  try { localStorage.setItem(STORAGE_KEY, isDark ? 'dark' : 'light') } catch {}
 }
 
 export function isDark() {

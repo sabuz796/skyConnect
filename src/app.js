@@ -55,7 +55,7 @@ function header(c) {
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="flex items-center justify-between h-[72px]">
         <a href="#" class="flex items-center">
-          <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-14 object-contain" width="320" height="132" />
+          <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-18 object-contain" width="320" height="132" />
         </a>
 
         <nav class="hidden md:flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400" aria-label="Main">
@@ -190,27 +190,6 @@ function hero(c) {
   `
 }
 
-function booking(c) {
-  return `
-  <!-- BOOKING -->
-  <section id="booking" class="section-fade scroll-mt-20 py-12 md:py-16 bg-[#f7f5f2] dark:bg-[#0a0f1a]">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <div class="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-14 items-start">
-        <div data-service="flight">
-          <div id="hero-form" class="bg-white dark:bg-[#111827] border border-neutral-200/60 dark:border-neutral-800/60 rounded-xl p-6 md:p-8"></div>
-        </div>
-        <div class="md:sticky md:top-24 reveal">
-          <p class="eyebrow mb-4" data-i18n="nav_services">Services</p>
-          <h2 class="headline-display text-3xl md:text-[2.5rem] text-neutral-900 dark:text-white mb-4 leading-[1.1]"><span data-i18n="booking_title_1">Journeys,</span><br><span data-i18n="booking_title_2">handled with care.</span></h2>
-          <p class="text-neutral-500 dark:text-neutral-400 max-w-sm text-[0.9375rem] leading-relaxed" data-i18n="services_desc">Personal service and strong airline connections for routes that suit you.</p>
-          <p class="text-xs text-neutral-400 dark:text-neutral-500 mt-5" data-i18n="form_note">Request is sent directly via WhatsApp - we usually reply within minutes</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  `
-}
-
 function services() {
   return `
   <!-- SERVICES — Bento Grid -->
@@ -222,37 +201,28 @@ function services() {
       </div>
       <div class="grid md:grid-cols-3 gap-5">
         <!-- 01 VFR Flights -->
-        <div class="service-card tilt-card relative overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60" data-service-reveal style="--service-delay: 0ms">
-          ${picture({
-            stem: 'dubai',
-            widths: [800, 480],
-            sizes: '(min-width: 768px) 33vw, 100vw',
-            pictureClass: 'absolute inset-0',
-            alt: '',
-            attrs: 'loading="lazy"',
-            w: 800,
-            h: 1200
-          })}
-          <div class="service-photo-overlay absolute inset-0"></div>
-          <div class="relative p-7 md:p-8 flex flex-col justify-end min-h-[280px] md:min-h-[340px]">
-            <span class="headline-display text-3xl text-[#c9a96e] mb-3">01</span>
-            <div class="service-icon w-11 h-11 rounded-lg bg-white/15 backdrop-blur-sm flex items-center justify-center mb-4 border border-white/20">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+        <div class="service-card tilt-card group card-aura btn-sheen relative overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-[#faf6ee] dark:bg-neutral-900 hover:border-[#c9a96e] hover:shadow-[0_16px_55px_rgb(201_169_110/0.3)]" data-service-reveal style="--service-delay: 0ms">
+          <div class="p-7 md:p-8 flex flex-col justify-end min-h-[280px] md:min-h-[340px]">
+            <span class="headline-display card-num text-3xl text-[#c9a96e] mb-3">01</span>
+            <div class="service-icon w-11 h-11 rounded-lg bg-[#c9a96e]/15 flex items-center justify-center border border-[#c9a96e]/20 mb-4">
+              <svg class="w-5 h-5 text-[#c9a96e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
             </div>
-            <h3 class="headline-display text-2xl text-white mb-2" data-i18n="card1_title">VFR Flights</h3>
-            <p class="text-sm text-white/70 leading-relaxed mb-4 max-w-md" data-i18n="card1_desc">Special fares and conditions for those visiting family in Bangladesh, India, Pakistan, Nepal, Sri Lanka and Vietnam.</p>
-            <ul class="flex flex-wrap gap-2">
-              <li class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-xs text-white/80 border border-white/10"><span data-i18n="card1_li1">Generous baggage (often 2×23 kg)</span></li>
-              <li class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-xs text-white/80 border border-white/10"><span data-i18n="card1_li2">Child-friendly fares</span></li>
-              <li class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-xs text-white/80 border border-white/10"><span data-i18n="card1_li3">Flexible rebooking</span></li>
-            </ul>
+            <div>
+              <h3 class="headline-display text-xl text-neutral-900 dark:text-white mb-2" data-i18n="card1_title">VFR Flights</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4" data-i18n="card1_desc">Special fares and conditions for those visiting family in Bangladesh, India, Pakistan, Nepal, Sri Lanka and Vietnam.</p>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card1_li1">Generous baggage (often 2×23 kg)</span></li>
+                <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card1_li2">Child-friendly fares</span></li>
+                <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card1_li3">Flexible rebooking</span></li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <!-- 02 Umrah -->
-        <div class="service-card tilt-card relative overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-[#faf6ee] dark:bg-neutral-900" data-service-reveal style="--service-delay: 110ms">
+        <div class="service-card tilt-card group card-aura btn-sheen relative overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-[#faf6ee] dark:bg-neutral-900 hover:border-[#c9a96e] hover:shadow-[0_16px_55px_rgb(201_169_110/0.3)]" data-service-reveal style="--service-delay: 110ms">
           <div class="p-7 md:p-8 flex flex-col justify-end min-h-[280px] md:min-h-[340px]">
-            <span class="headline-display text-3xl text-[#c9a96e] mb-3">02</span>
+            <span class="headline-display card-num text-3xl text-[#c9a96e] mb-3">02</span>
             <div class="service-icon w-11 h-11 rounded-lg bg-[#c9a96e]/15 flex items-center justify-center border border-[#c9a96e]/20 mb-4">
               <svg class="w-5 h-5 text-[#c9a96e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
             </div>
@@ -262,39 +232,63 @@ function services() {
               <ul class="space-y-1.5">
                 <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card2_li1">Hotels right by the Haram</span></li>
                 <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card2_li2">Guaranteed travel protection</span></li>
-                <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card2_li3">Swedish / Danish support</span></li>
+                <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card2_li3">Bangla / Swedish / English support</span></li>
               </ul>
             </div>
           </div>
         </div>
 
         <!-- 03 Study -->
-        <div class="service-card tilt-card relative overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60" data-service-reveal style="--service-delay: 220ms">
-          ${picture({
-            stem: 'humboldt-university',
-            widths: [1920, 1280, 800, 480],
-            sizes: '(min-width: 768px) 33vw, 100vw',
-            pictureClass: 'absolute inset-0',
-            alt: '',
-            attrs: 'loading="lazy"',
-            w: 1920,
-            h: 1280
-          })}
-          <div class="service-photo-overlay absolute inset-0"></div>
-          <div class="relative p-7 md:p-8 flex flex-col justify-end min-h-[280px] md:min-h-[320px]">
-            <span class="headline-display text-3xl text-[#c9a96e] mb-3">03</span>
-            <div class="service-icon w-11 h-11 rounded-lg bg-white/15 backdrop-blur-sm flex items-center justify-center mb-4 border border-white/20">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14v7m0-7l6.16-3.422"/></svg>
+        <div class="service-card tilt-card group card-aura btn-sheen relative overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-[#faf6ee] dark:bg-neutral-900 hover:border-[#c9a96e] hover:shadow-[0_16px_55px_rgb(201_169_110/0.3)]" data-service-reveal style="--service-delay: 220ms">
+          <div class="p-7 md:p-8 flex flex-col justify-end min-h-[280px] md:min-h-[340px]">
+            <span class="headline-display card-num text-3xl text-[#c9a96e] mb-3">03</span>
+            <div class="service-icon w-11 h-11 rounded-lg bg-[#c9a96e]/15 flex items-center justify-center border border-[#c9a96e]/20 mb-4">
+              <svg class="w-5 h-5 text-[#c9a96e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14v7m0-7l6.16-3.422"/></svg>
             </div>
-            <h3 class="headline-display text-2xl text-white mb-2" data-i18n="study_title">Study Consultancy</h3>
-            <p class="text-sm text-white/70 leading-relaxed mb-4 max-w-md" data-i18n="study_desc">Your gateway to education abroad - from university admissions to student visas.</p>
-            <div class="flex flex-wrap gap-3">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-xs text-white/80 border border-white/10" data-i18n="study_pill_admissions">University Admissions</span>
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-xs text-white/80 border border-white/10" data-i18n="study_pill_visa">Student Visa</span>
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-xs text-white/80 border border-white/10" data-i18n="study_pill_predepart">Pre-Departure</span>
+            <div>
+              <h3 class="headline-display text-xl text-neutral-900 dark:text-white mb-2" data-i18n="study_title">Study Consultancy</h3>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4" data-i18n="study_desc">Your gateway to education abroad - from university admissions to student visas.</p>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="study_pill_admissions">University Admissions</span></li>
+                <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="study_pill_visa">Student Visa</span></li>
+                <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="study_pill_predepart">Pre-Departure</span></li>
+              </ul>
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- How it works -->
+      <div class="service-card group mt-8 rounded-xl bg-[#111827] px-6 py-8 md:p-10 border border-neutral-800 hover:border-[#c9a96e]/30" data-service-reveal style="--service-delay: 300ms">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[#c9a96e] mb-3" data-i18n="how_eyebrow">How it works</p>
+        <h3 class="headline-display text-2xl md:text-3xl text-white mb-8" data-i18n="how_title">From query to takeoff in 3 steps</h3>
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+          <div class="service-card how-step flex gap-4 rounded-lg p-3 -m-3 border border-transparent hover:border-[#c9a96e]/40 hover:shadow-[0_8px_30px_rgb(201_169_110/0.15)]" data-service-reveal style="--service-delay: 350ms">
+            <span class="headline-display text-3xl text-[#c9a96e] flex-shrink-0 inline-block transition-transform duration-300 hover:scale-110">01</span>
+            <div>
+              <p class="font-medium text-white mb-1 text-sm" data-i18n="how1_title">Tell us your query</p>
+              <p class="text-sm text-neutral-400 leading-relaxed" data-i18n="how1_desc">Form, WhatsApp or phone — in Bangla, Swedish or English.</p>
+            </div>
+          </div>
+          <div class="service-card how-step flex gap-4 rounded-lg p-3 -m-3 border border-transparent hover:border-[#c9a96e]/40 hover:shadow-[0_8px_30px_rgb(201_169_110/0.15)]" data-service-reveal style="--service-delay: 450ms">
+            <span class="headline-display text-3xl text-[#c9a96e] flex-shrink-0 inline-block transition-transform duration-300 hover:scale-110">02</span>
+            <div>
+              <p class="font-medium text-white mb-1 text-sm" data-i18n="how2_title">We arrange everything</p>
+              <p class="text-sm text-neutral-400 leading-relaxed" data-i18n="how2_desc">Flights, hotels and transfers, confirmed in writing.</p>
+            </div>
+          </div>
+          <div class="service-card how-step flex gap-4 rounded-lg p-3 -m-3 border border-transparent hover:border-[#c9a96e]/40 hover:shadow-[0_8px_30px_rgb(201_169_110/0.15)]" data-service-reveal style="--service-delay: 550ms">
+            <span class="headline-display text-3xl text-[#c9a96e] flex-shrink-0 inline-block transition-transform duration-300 hover:scale-110">03</span>
+            <div>
+              <p class="font-medium text-white mb-1 text-sm" data-i18n="how3_title">You fly with support</p>
+              <p class="text-sm text-neutral-400 leading-relaxed" data-i18n="how3_desc">E-ticket in hand, with help available throughout your trip.</p>
+            </div>
+          </div>
+        </div>
+        <a href="#/contact" class="btn-sheen group/cta relative overflow-hidden inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#c9a96e] text-[#111827] font-medium text-sm hover:bg-[#b8944f] transition-all duration-200 active:scale-[0.98]">
+          <span data-i18n="contact_submit">Request my free consultation</span>
+          <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -441,14 +435,6 @@ function trustBand(c) {
         </div>
       </div>
 
-      <!-- Partner strip -->
-      <div class="trust-copy mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl bg-[#111827] dark:bg-[#0a0f1a] px-6 py-5 border border-neutral-800" data-trust-reveal style="--trust-delay: 300ms">
-        <p class="text-sm text-neutral-300">
-          <span class="text-[#c9a96e] font-semibold mr-2" data-i18n="trustband_partners">Partnered with</span>
-          Airticket AS · REISEbazaar · airticketgroup.travel
-        </p>
-        <p class="text-sm text-neutral-500">Storgata 3, 0155 Oslo</p>
-      </div>
     </div>
   </section>
   `
@@ -466,7 +452,7 @@ function contact(c) {
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="reveal max-w-2xl">
         <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[#c9a96e] mb-4" data-i18n="contact_eyebrow">Get in touch</p>
-        <h2 class="headline-display text-3xl md:text-4xl text-white mb-5" data-i18n="contact_heading">Tell us what you're trying to do.</h2>
+        <h2 class="headline-display text-3xl md:text-4xl text-white mb-5" data-i18n="contact_heading">Tell us about your query.</h2>
         <p class="text-neutral-400 leading-relaxed" data-i18n="contact_desc">We'll come back with what it costs, how long it takes, and what papers you need. If there's a catch, you'll hear it from us before you pay anything.</p>
       </div>
 
@@ -545,6 +531,7 @@ function footer(c) {
           <p class="text-sm">SkyConnect Travels</p>
           <p class="text-sm" data-i18n="footer_owner">Owner: Aslam Hossain</p>
           <p class="text-sm" data-i18n="footer_org">Org No: 930420-0158</p>
+          <a href="mailto:${c.emailAddress}" class="block text-sm mt-1 text-[#c9a96e] hover:text-white transition break-words">${c.emailAddress}</a>
         </div>
       </div>
       <div class="border-t border-neutral-800/50 pt-6 text-xs text-center">
@@ -575,10 +562,11 @@ function backToTop() {
 
 /**
  * The three views. `home` is the default when the hash is missing or
- * unrecognised. Each view is exactly two sections.
+ * unrecognised. `services` is one section; `home` is hero + trustBand;
+ * `study` and `contact` are single sections.
  */
 export function viewContent(name, c) {
-  if (name === 'services') return services() + booking(c)
+  if (name === 'services') return services()
   if (name === 'study') return study(c)
   if (name === 'contact') return contact(c)
   return hero(c) + trustBand(c)
