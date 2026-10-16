@@ -93,6 +93,24 @@ describe('view routing', () => {
     expect(VIEW_HTML.services).toContain('data-i18n="how1_title"')
     expect(VIEW_HTML.services).toContain('href="#/contact"')
   })
+
+  it('lays the hero highlights out as a single row of three cards', () => {
+    const heroList = VIEW_HTML.home.split('<ul class="grid grid-cols-1 sm:grid-cols-3')[1].split('</ul>')[0]
+    expect((heroList.match(/<li /g) || [])).toHaveLength(3)
+    for (const n of [1, 2, 3]) {
+      expect(heroList).toContain(`data-i18n="hero_item${n}_title"`)
+      expect(heroList).toContain(`data-i18n="hero_item${n}_desc"`)
+    }
+  })
+
+  it('sends each hero highlight card to its own services card', () => {
+    // The card id, the link target and the router's `card-<segment>` lookup have
+    // to agree, or the click silently lands at the top of the services view.
+    for (const name of ['ticket', 'umrah', 'study']) {
+      expect(VIEW_HTML.home, name).toContain(`href="#/services/${name}"`)
+      expect(VIEW_HTML.services, name).toContain(`id="card-${name}"`)
+    }
+  })
 })
 
 describe('app shell', () => {

@@ -31,13 +31,6 @@ export function initHeroGlow(prefersReducedMotion) {
     glow.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`)
   }, { passive: true })
 
-  // Parallax on hero photo
-  window.addEventListener('scroll', () => {
-    const heroPhoto = document.querySelector('.hero-photo')
-    if (!heroPhoto) return
-    const rate = window.scrollY * 0.3
-    heroPhoto.style.transform = `scale(1.05) translateY(${rate}px)`
-  }, { passive: true })
 }
 
 export function initTiltCards(prefersReducedMotion) {
@@ -60,14 +53,4 @@ export function initTiltCards(prefersReducedMotion) {
       card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)'
     })
   })
-}
-
-export function initFloatingWhatsappEntrance(prefersReducedMotion) {
-  if (prefersReducedMotion) return
-
-  const floatBtn = document.querySelector('.float-whatsapp')
-  if (floatBtn) {
-    // Trigger entrance animation
-    floatBtn.style.animation = 'floatBtnEntrance 0.6s 1s cubic-bezier(0.22, 1, 0.36, 1) both'
-  }
 }

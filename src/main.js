@@ -2,7 +2,7 @@ import './styles/main.css'
 import { renderApp } from './app.js'
 import { initI18n } from './js/i18n.js'
 import { initTheme } from './js/theme.js'
-import { initHeroGlow, initFloatingWhatsappEntrance } from './js/effects.js'
+import { initHeroGlow } from './js/effects.js'
 import { initHeaderControls, initBackToTop } from './js/ui.js'
 import { initRouter } from './js/views.js'
 import { WHATSAPP_NUMBER, PHONE_NUMBER, PHONE_LINK, CONTACT_EMAIL } from './js/config.js'
@@ -27,10 +27,9 @@ initI18n()
 initRouter(CONFIG)
 
 // ========== EFFECTS ==========
-// These bind to `window` or to nodes outside <main>, so they run once here and
-// are deliberately NOT re-run by views.js on every swap.
+// Bindings that attach to `window` or to nodes outside <main> run once here
+// and are deliberately NOT re-run by views.js on every swap.
 initHeroGlow(prefersReducedMotion)
-initFloatingWhatsappEntrance(prefersReducedMotion)
 
 // ========== UI ==========
 initHeaderControls()

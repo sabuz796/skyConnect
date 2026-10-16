@@ -31,19 +31,26 @@ const WEBP_QUALITY = 78
  *
  * The numbers are the largest CSS width each asset is displayed at, plus headroom
  * for 2x DPR:
- *   hero-flight       hero backdrop (100vw) + hero card (~50vw at md+)   -> 1920
+ *   hero-flight       hero card (~50vw at md+) + full width below 768px  -> 1920
  *   humboldt-*        study backdrop (100vw) + wide service card (~66vw) -> 1920
- *   dubai             narrow service card (~33vw) + gallery card (400px) -> 800
- *   gallery images    moment cards are 340px / 400px fixed               -> 800
+ *   card strips       hero highlight cards: ~205px md+, full width mobile -> 1200
  */
 const SPEC = {
   'hero-flight.jpg': [1920, 1280, 800, 480],
   'humboldt-university.jpg': [1920, 1280, 800, 480],
+  // Hero highlight card strips: ~205px at md+, full width below 640px.
+  'ticket.jpg': [1200, 800, 480],
+  'umrah.jpg': [1200, 800, 480],
+  'study.jpg': [1200, 800, 480],
 }
 
 /** Assets that are not photographic <img> content. */
 const SPECIAL = {
-  'SkyConnect (PNG).png': { kind: 'logo', width: 320 },
+  // A wordmark uploaded at 5823x2415, rendered at 40-48px tall. The 277px width
+  // is the trimmed size the markup declares as width/height for CLS, so the
+  // pipeline and src/app.js stay in agreement. Emitted lossless-ish because text
+  // edges are the whole point of the asset.
+  'SkyConnect (PNG).png': { kind: 'logo', width: 277 },
 }
 
 function isImage(file) {
@@ -105,8 +112,8 @@ async function processPhoto(file) {
 async function processLogo(file, width) {
   const input = join(SRC, file)
   const meta = await sharp(input, { failOn: 'none' }).metadata()
-  // A wordmark uploaded at 5823x2415 and rendered at 56-80px tall. 320px wide
-  // covers ~4x DPR at the footer lockup. Emitted lossless-ish because text
+  // A wordmark uploaded at 5823x2415 and rendered at 40-48px tall. 277px wide
+  // covers ~6x DPR at the navbar lockup. Emitted lossless-ish because text
   // edges are the whole point of the asset.
   const png = await emit(input, width, 'png', null, 'skyconnect-logo.png')
   return { file, kind: 'logo', source: `${meta.width}x${meta.height}`, emitted: [{ width, png }], fallbackWidth: null, total: png ?? 0 }
@@ -140,7 +147,7 @@ async function main() {
     grand += r.total
     const widths = r.emitted.map((e) => `${e.width}w`).join(' ')
     console.log(
-      `  ${r.file.padEnd(30)} ${r.source.padEnd(11)} -> ${(r.kind === 'logo' ? '320w png' : `${widths} webp + jpg`).padEnd(34)} ${kb(r.total)}`,
+      `  ${r.file.padEnd(30)} ${r.source.padEnd(11)} -> ${(r.kind === 'logo' ? `${r.emitted[0].width}w png` : `${widths} webp + jpg`).padEnd(34)} ${kb(r.total)}`,
     )
   }
 

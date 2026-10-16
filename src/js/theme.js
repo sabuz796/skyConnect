@@ -17,6 +17,3 @@ export function toggleTheme() {
   try { localStorage.setItem(STORAGE_KEY, isDark ? 'dark' : 'light') } catch {}
 }
 
-export function isDark() {
-  return document.documentElement.classList.contains('dark')
-}

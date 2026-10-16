@@ -23,9 +23,15 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 let appConfig = null
 
 /** Normalise '#/services', '#services' or '#/services/extra' to a view name. */
-export function viewFromHash(hash = window.location.hash) {
+function viewFromHash(hash = window.location.hash) {
   const raw = String(hash).replace(/^#\/?/, '').split('/')[0].toLowerCase()
   return VIEWS.includes(raw) ? raw : 'home'
+}
+
+/** Second hash segment, e.g. 'ticket' in '#/services/ticket'. Empty when the
+ *  route names no card, so '#/services' still lands at the top of the view. */
+function focusFromHash(hash = window.location.hash) {
+  return String(hash).replace(/^#\/?/, '').split('/')[1]?.toLowerCase() ?? ''
 }
 
 /** Re-bind everything that lives inside <main>. Safe to call repeatedly. */
@@ -57,7 +63,16 @@ export function setView(name) {
   })
 
   bindView()
-  window.scrollTo({ top: 0, behavior: 'auto' })
+
+  // '#/services/ticket' scrolls to that card; a plain '#/services' starts at the
+  // top as before. block:'center' rather than 'start' so the sticky header never
+  // lands on top of the card it was aimed at.
+  const card = document.getElementById(`card-${focusFromHash()}`)
+  if (card) {
+    card.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'center' })
+  } else {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }
 }
 
 /**

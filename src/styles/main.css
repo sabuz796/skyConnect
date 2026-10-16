@@ -127,36 +127,6 @@ picture > img {
   object-fit: cover;
 }
 
-/* ===== Hero Photo ===== */
-.hero-photo {
-  object-position: center 58%;
-  opacity: 0.85;
-  transform: scale(1.03);
-}
-
-.hero-wash {
-  background:
-    linear-gradient(135deg, rgba(247,245,242,0.92) 0%, rgba(247,245,242,0.7) 50%, rgba(247,245,242,0.3) 100%);
-}
-
-.dark .hero-wash {
-  background:
-    linear-gradient(135deg, rgba(10,15,26,0.95) 0%, rgba(10,15,26,0.75) 50%, rgba(10,15,26,0.4) 100%);
-}
-
-.hero-glass {
-  background: linear-gradient(135deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.65));
-  border: 1px solid rgb(255 255 255 / 0.8);
-  box-shadow: 0 18px 48px rgb(10 15 26 / 0.08), inset 0 1px 0 rgb(255 255 255 / 0.8);
-  backdrop-filter: blur(20px) saturate(145%);
-  -webkit-backdrop-filter: blur(20px) saturate(145%);
-}
-
-.dark .hero-glass {
-  background: linear-gradient(135deg, rgb(17 24 39 / 0.82), rgb(17 24 39 / 0.62));
-  border-color: rgb(255 255 255 / 0.1);
-  box-shadow: 0 18px 48px rgb(0 0 0 / 0.3), inset 0 1px 0 rgb(255 255 255 / 0.06);
-}
 
 /* ===== Hero Mouse-Follow Glow ===== */
 #hero-glow {
@@ -173,16 +143,6 @@ picture > img {
 #hero:hover #hero-glow,
 #hero:has(:hover) #hero-glow {
   opacity: 1;
-}
-
-/* Parallax on hero photo */
-#hero:not(.reduce-motion) .hero-photo {
-  transform: scale(1.05);
-  transition: transform 0.1s linear;
-}
-
-.dark .hero-photo {
-  opacity: 0.45;
 }
 
 /* ===== 3D Tilt Card Effect ===== */
@@ -203,8 +163,7 @@ picture > img {
 
 @media (prefers-reduced-motion: reduce) {
   .tilt-card,
-  #hero-glow,
-  #hero .hero-photo {
+  #hero-glow {
     transition: none !important;
     transform: none !important;
   }
@@ -435,7 +394,6 @@ picture > img {
   .service-card,
   .service-card::before,
   .service-icon,
-  .trust-copy,
   .trust-item,
   .trust-item::before,
   .btn-sheen::after {
@@ -444,23 +402,12 @@ picture > img {
   }
 
   .service-card.service-enter,
-  .trust-copy.trust-enter,
   .trust-item.trust-enter,
   [data-study-reveal].study-enter {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;
   }
-}
-
-/* ===== Trust ===== */
-.trust-copy.trust-enter {
-  opacity: 0;
-  transform: translateX(-24px);
-}
-
-.trust-copy.trust-enter.is-visible {
-  animation: trustCopyIn 0.7s var(--trust-delay, 0ms) cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .trust-item {
@@ -489,11 +436,6 @@ picture > img {
 
 .trust-item.trust-enter.is-visible::before {
   animation: trustAccent 0.4s calc(var(--trust-delay, 0ms) + 170ms) cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes trustCopyIn {
-  from { opacity: 0; transform: translateX(-24px); }
-  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes trustItemIn {
@@ -767,18 +709,6 @@ picture > img {
   }
 }
 
-/* ===== Floating WhatsApp Entrance ===== */
-.float-whatsapp {
-  animation: none;
-}
-
-/* ===== Reduced Motion Overrides ===== */
-@media (prefers-reduced-motion: reduce) {
-  .float-whatsapp {
-    animation: none !important;
-  }
-}
-
 /* ===== Eyebrow (section label) ===== */
 .eyebrow {
   font-family: var(--font-sans);
@@ -814,7 +744,6 @@ html:not(.js-reveal) .section-fade,
 html:not(.js-reveal) .reveal,
 html:not(.js-reveal) .service-card.service-enter,
 html:not(.js-reveal) [data-study-reveal].study-enter,
-html:not(.js-reveal) .trust-copy.trust-enter,
 html:not(.js-reveal) .trust-item.trust-enter {
   opacity: 1 !important;
   transform: none !important;

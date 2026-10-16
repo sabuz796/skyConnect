@@ -44,3 +44,4 @@ Always use these skills:
 - Keep answers clear and easy to scan
 - Action first: lead with the next action, number multi-step work, no preamble
 - When are you giving plan give with your recommendation with consequnces. 
+- Use simple, straightforward English so that non-native English speakers can easily understand. If technical definitions come, use ASD-STE100 principles.

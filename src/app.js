@@ -55,7 +55,7 @@ function header(c) {
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="flex items-center justify-between h-[72px]">
         <a href="#" class="flex items-center">
-          <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-10 object-contain" width="277" height="71" />
+          <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-10 object-contain" width="277" height="70" />
         </a>
 
         <nav class="hidden md:flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400" aria-label="Main">
@@ -120,20 +120,7 @@ function hero(c) {
   return `
   <!-- HERO — Split Screen -->
   <section class="relative min-h-[85vh] flex items-center overflow-hidden bg-[#f7f5f2] dark:bg-[#0a0f1a]" id="hero">
-    ${picture({
-      stem: 'hero-flight',
-      widths: [1920, 1280, 800, 480],
-      sizes: '100vw',
-      pictureClass: 'absolute inset-0 -z-20',
-      alt: '',
-      imgClass: 'hero-photo',
-      attrs: 'fetchpriority="high"',
-      w: 1920,
-      h: 1275
-    })}
-    <div class="hero-wash absolute inset-0 -z-10" aria-hidden="true"></div>
     <div id="hero-glow" class="absolute inset-0 -z-5 pointer-events-none" aria-hidden="true"></div>
-
     <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full py-24">
       <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         <div class="lg:col-span-7">
@@ -145,24 +132,51 @@ function hero(c) {
           <p id="hero-subtitle" class="text-lg text-neutral-500 dark:text-neutral-400 max-w-md leading-relaxed mb-6" data-i18n="hero_desc">
             Specialized in VFR flights to South Asia & Southeast Asia, complete Umrah packages and smooth visa handling.
           </p>
-          <ul class="flex flex-col gap-2.5 mb-8">
-            <li class="flex items-center gap-3 text-sm font-medium text-neutral-800 dark:text-neutral-200">
-              <span class="w-9 h-9 rounded-lg bg-[#c9a96e]/12 flex items-center justify-center flex-shrink-0 border border-[#c9a96e]/20">
-                <svg class="w-[18px] h-[18px] text-[#c9a96e]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
-              </span>
-              <span data-i18n="card1_title">Family Travel</span>
+          <ul class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+            <li class="reveal reveal-delay-1">
+              <a href="#/services/ticket" class="group/card block h-full overflow-hidden rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/70 dark:bg-neutral-900/40 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a96e] hover:shadow-[0_8px_30px_rgb(201_169_110/0.15)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a96e]">
+                ${picture({
+                  stem: 'ticket',
+                  widths: [1200, 800, 480],
+                  sizes: '(min-width: 640px) 205px, 92vw',
+                  pictureClass: 'block h-36 sm:h-28 overflow-hidden',
+                  imgClass: 'transition-transform duration-500 group-hover/card:scale-105'
+                })}
+                <div class="p-4">
+                  <p class="text-sm font-medium text-neutral-800 dark:text-neutral-200 mb-1" data-i18n="hero_item1_title">Air Ticket</p>
+                  <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed" data-i18n="hero_item1_desc">Flights to anywhere in the world with competitive fares.</p>
+                </div>
+              </a>
             </li>
-            <li class="flex items-center gap-3 text-sm font-medium text-neutral-800 dark:text-neutral-200">
-              <span class="w-9 h-9 rounded-lg bg-[#c9a96e]/12 flex items-center justify-center flex-shrink-0 border border-[#c9a96e]/20">
-                <svg class="w-[18px] h-[18px] text-[#c9a96e]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-              </span>
-              <span data-i18n="card2_title">Umrah Packages</span>
+            <li class="reveal reveal-delay-2">
+              <a href="#/services/umrah" class="group/card block h-full overflow-hidden rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/70 dark:bg-neutral-900/40 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a96e] hover:shadow-[0_8px_30px_rgb(201_169_110/0.15)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a96e]">
+                ${picture({
+                  stem: 'umrah',
+                  widths: [1200, 800, 480],
+                  sizes: '(min-width: 640px) 205px, 92vw',
+                  pictureClass: 'block h-36 sm:h-28 overflow-hidden',
+                  imgClass: 'transition-transform duration-500 group-hover/card:scale-105'
+                })}
+                <div class="p-4">
+                  <p class="text-sm font-medium text-neutral-800 dark:text-neutral-200 mb-1" data-i18n="hero_item2_title">Umrah</p>
+                  <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed" data-i18n="hero_item2_desc">Flights, hotels by the Haram and visa, arranged as one package.</p>
+                </div>
+              </a>
             </li>
-            <li class="flex items-center gap-3 text-sm font-medium text-neutral-800 dark:text-neutral-200">
-              <span class="w-9 h-9 rounded-lg bg-[#c9a96e]/12 flex items-center justify-center flex-shrink-0 border border-[#c9a96e]/20">
-                <svg class="w-[18px] h-[18px] text-[#c9a96e]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-              </span>
-              <span data-i18n="study_title">Study Consultancy</span>
+            <li class="reveal reveal-delay-3">
+              <a href="#/services/study" class="group/card block h-full overflow-hidden rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/70 dark:bg-neutral-900/40 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a96e] hover:shadow-[0_8px_30px_rgb(201_169_110/0.15)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a96e]">
+                ${picture({
+                  stem: 'study',
+                  widths: [1200, 800, 480],
+                  sizes: '(min-width: 640px) 205px, 92vw',
+                  pictureClass: 'block h-36 sm:h-28 overflow-hidden',
+                  imgClass: 'transition-transform duration-500 group-hover/card:scale-105'
+                })}
+                <div class="p-4">
+                  <p class="text-sm font-medium text-neutral-800 dark:text-neutral-200 mb-1" data-i18n="hero_item3_title">Study</p>
+                  <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed" data-i18n="hero_item3_desc">University admission and student visa, guided step by step.</p>
+                </div>
+              </a>
             </li>
           </ul>
           <div class="flex flex-wrap gap-3">
@@ -202,9 +216,16 @@ function services() {
       </div>
       <div class="grid md:grid-cols-3 gap-5">
         <!-- 01 VFR Flights -->
-        <div class="service-card tilt-card group card-aura btn-sheen relative overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-[#faf6ee] dark:bg-neutral-900 hover:border-[#c9a96e] hover:shadow-[0_16px_55px_rgb(201_169_110/0.3)]" data-service-reveal style="--service-delay: 0ms">
-          <div class="p-7 md:p-8 flex flex-col justify-end min-h-[280px] md:min-h-[340px]">
-            <span class="headline-display card-num text-3xl text-[#c9a96e] mb-3">01</span>
+        <div class="service-card tilt-card group card-aura btn-sheen relative flex flex-col overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-[#faf6ee] dark:bg-neutral-900 hover:border-[#c9a96e] hover:shadow-[0_16px_55px_rgb(201_169_110/0.3)]" data-service-reveal style="--service-delay: 0ms" id="card-ticket">
+          ${picture({
+            stem: 'ticket',
+            widths: [1200, 800, 480],
+            sizes: '(min-width: 768px) 370px, 92vw',
+            pictureClass: 'block h-56 md:h-40 overflow-hidden',
+            imgClass: 'transition-transform duration-500 group-hover:scale-105'
+          })}
+          <span class="headline-display card-num absolute left-7 md:left-8 top-56 md:top-40 -translate-y-1/2 z-10 rounded-lg bg-[#faf6ee] dark:bg-neutral-900 px-3 py-0.5 text-3xl text-[#c9a96e]">01</span>
+          <div class="p-7 md:p-8 pt-14 md:pt-12 flex flex-col flex-1">
             <div class="service-icon w-11 h-11 rounded-lg bg-[#c9a96e]/15 flex items-center justify-center border border-[#c9a96e]/20 mb-4">
               <svg class="w-5 h-5 text-[#c9a96e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
             </div>
@@ -214,16 +235,23 @@ function services() {
               <ul class="space-y-1.5">
                 <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card1_li1">Generous baggage (often 2×23 kg)</span></li>
                 <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card1_li2">Child-friendly fares</span></li>
-                <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card1_li3">Flexible rebooking</span></li>
+                <li class="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 mt-[7px] rounded-full bg-[#c9a96e]"></span><span><span data-i18n="card1_li3">Flexible rebooking and refundable</span> <strong class="font-semibold text-neutral-700 dark:text-neutral-300" data-i18n="conditions_apply">*conditions apply</strong></span></li>
               </ul>
             </div>
           </div>
         </div>
 
         <!-- 02 Umrah -->
-        <div class="service-card tilt-card group card-aura btn-sheen relative overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-[#faf6ee] dark:bg-neutral-900 hover:border-[#c9a96e] hover:shadow-[0_16px_55px_rgb(201_169_110/0.3)]" data-service-reveal style="--service-delay: 110ms">
-          <div class="p-7 md:p-8 flex flex-col justify-end min-h-[280px] md:min-h-[340px]">
-            <span class="headline-display card-num text-3xl text-[#c9a96e] mb-3">02</span>
+        <div class="service-card tilt-card group card-aura btn-sheen relative flex flex-col overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-[#faf6ee] dark:bg-neutral-900 hover:border-[#c9a96e] hover:shadow-[0_16px_55px_rgb(201_169_110/0.3)]" data-service-reveal style="--service-delay: 110ms" id="card-umrah">
+          ${picture({
+            stem: 'umrah',
+            widths: [1200, 800, 480],
+            sizes: '(min-width: 768px) 370px, 92vw',
+            pictureClass: 'block h-56 md:h-40 overflow-hidden',
+            imgClass: 'transition-transform duration-500 group-hover:scale-105'
+          })}
+          <span class="headline-display card-num absolute left-7 md:left-8 top-56 md:top-40 -translate-y-1/2 z-10 rounded-lg bg-[#faf6ee] dark:bg-neutral-900 px-3 py-0.5 text-3xl text-[#c9a96e]">02</span>
+          <div class="p-7 md:p-8 pt-14 md:pt-12 flex flex-col flex-1">
             <div class="service-icon w-11 h-11 rounded-lg bg-[#c9a96e]/15 flex items-center justify-center border border-[#c9a96e]/20 mb-4">
               <svg class="w-5 h-5 text-[#c9a96e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
             </div>
@@ -240,9 +268,16 @@ function services() {
         </div>
 
         <!-- 03 Study -->
-        <div class="service-card tilt-card group card-aura btn-sheen relative overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-[#faf6ee] dark:bg-neutral-900 hover:border-[#c9a96e] hover:shadow-[0_16px_55px_rgb(201_169_110/0.3)]" data-service-reveal style="--service-delay: 220ms">
-          <div class="p-7 md:p-8 flex flex-col justify-end min-h-[280px] md:min-h-[340px]">
-            <span class="headline-display card-num text-3xl text-[#c9a96e] mb-3">03</span>
+        <div class="service-card tilt-card group card-aura btn-sheen relative flex flex-col overflow-hidden rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-[#faf6ee] dark:bg-neutral-900 hover:border-[#c9a96e] hover:shadow-[0_16px_55px_rgb(201_169_110/0.3)]" data-service-reveal style="--service-delay: 220ms" id="card-study">
+          ${picture({
+            stem: 'study',
+            widths: [1200, 800, 480],
+            sizes: '(min-width: 768px) 370px, 92vw',
+            pictureClass: 'block h-56 md:h-40 overflow-hidden',
+            imgClass: 'transition-transform duration-500 group-hover:scale-105'
+          })}
+          <span class="headline-display card-num absolute left-7 md:left-8 top-56 md:top-40 -translate-y-1/2 z-10 rounded-lg bg-[#faf6ee] dark:bg-neutral-900 px-3 py-0.5 text-3xl text-[#c9a96e]">03</span>
+          <div class="p-7 md:p-8 pt-14 md:pt-12 flex flex-col flex-1">
             <div class="service-icon w-11 h-11 rounded-lg bg-[#c9a96e]/15 flex items-center justify-center border border-[#c9a96e]/20 mb-4">
               <svg class="w-5 h-5 text-[#c9a96e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14v7m0-7l6.16-3.422"/></svg>
             </div>
@@ -514,7 +549,7 @@ function footer(c) {
       <div class="grid md:grid-cols-[1.4fr_0.7fr_1fr] gap-8 mb-10 items-start">
         <div>
           <div class="mb-3">
-            <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-12 object-contain" width="277" height="71" />
+            <img src="${BASE}images/skyconnect-logo.png" alt="SkyConnect" class="h-12 object-contain" width="277" height="70" />
           </div>
           <p class="text-sm text-neutral-300 font-medium mb-2" data-i18n="footer_tagline">Your journey. Our attention to detail.</p>
           <p class="text-sm max-w-xs leading-relaxed" data-i18n="footer_desc">From visiting family to spiritual journeys and international study, SkyConnect brings together carefully arranged travel services with personal support at every step.</p>

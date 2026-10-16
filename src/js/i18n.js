@@ -8,10 +8,6 @@ const languageFlags = { en: '🌐', sv: '🇸🇪', bn: '🇧🇩' }
 let currentLang = 'en'
 try { currentLang = localStorage.getItem('skyconnect-lang') || 'en' } catch {}
 
-export function getLang() {
-  return currentLang
-}
-
 export function t(key) {
   return translations[currentLang]?.[key] ?? translations.en[key] ?? key
 }
@@ -36,12 +32,6 @@ export function applyTranslations() {
     const key = el.getAttribute('data-i18n-placeholder')
     const value = t(key)
     if (value) el.placeholder = value
-  })
-
-  document.querySelectorAll('option[data-i18n]').forEach((el) => {
-    const key = el.getAttribute('data-i18n')
-    const value = t(key)
-    if (value) el.textContent = value
   })
 
   const langBtn = document.getElementById('current-lang')
