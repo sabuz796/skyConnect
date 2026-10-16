@@ -103,11 +103,17 @@ describe('view routing', () => {
     }
   })
 
-  it('sends each hero highlight card to its own services card', () => {
+  it('sends each hero highlight card where it belongs', () => {
     // The card id, the link target and the router's `card-<segment>` lookup have
     // to agree, or the click silently lands at the top of the services view.
-    for (const name of ['ticket', 'umrah', 'study']) {
+    // Study is the exception: it has a fuller view of its own, so its hero card
+    // goes there and note the services card still keeps a working deep link.
+    for (const name of ['ticket', 'umrah']) {
       expect(VIEW_HTML.home, name).toContain(`href="#/services/${name}"`)
+    }
+    expect(VIEW_HTML.home).toContain('href="#/study"')
+    expect(VIEW_HTML.home).not.toContain('href="#/services/study"')
+    for (const name of ['ticket', 'umrah', 'study']) {
       expect(VIEW_HTML.services, name).toContain(`id="card-${name}"`)
     }
   })

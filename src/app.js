@@ -164,7 +164,7 @@ function hero(c) {
               </a>
             </li>
             <li class="reveal reveal-delay-3">
-              <a href="#/services/study" class="group/card block h-full overflow-hidden rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/70 dark:bg-neutral-900/40 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a96e] hover:shadow-[0_8px_30px_rgb(201_169_110/0.15)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a96e]">
+              <a href="#/study" class="group/card block h-full overflow-hidden rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/70 dark:bg-neutral-900/40 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a96e] hover:shadow-[0_8px_30px_rgb(201_169_110/0.15)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a96e]">
                 ${picture({
                   stem: 'study',
                   widths: [1200, 800, 480],
@@ -231,7 +231,7 @@ function services() {
             </div>
             <div>
               <h3 class="headline-display text-xl text-neutral-900 dark:text-white mb-2" data-i18n="card1_title">VFR Flights</h3>
-              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4" data-i18n="card1_desc">Special fares and conditions for those visiting family in Bangladesh, India, Pakistan, Nepal, Sri Lanka and Vietnam.</p>
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4" data-i18n="card1_desc">Tickets to Bangladesh, India, Pakistan, Nepal, Sri Lanka and Vietnam, with fares and baggage allowances that fit the trip.</p>
               <ul class="space-y-1.5">
                 <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card1_li1">Generous baggage (often 2×23 kg)</span></li>
                 <li class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e]"></span><span data-i18n="card1_li2">Child-friendly fares</span></li>
